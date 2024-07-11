@@ -1,7 +1,7 @@
-import { AuthStateType, AuthorizationStatusType, SortingAndOffersListStateType, OffersTypes, OfferStateType, OfferCardType, ReviewType, ReviewsTypes} from './types';
+import { AuthStateType, AuthorizationStatusType, SortingAndOffersListStateType, OffersTypes, OfferStateType, OfferCardType, ReviewType, ReviewsTypes, FavoritesType } from './types';
 import { AuthorizationStatus, offerWhenRejected } from './const';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { checkAuthAction, fetchOffersAction, fetchOffer, fetchOffersNearby, fetchReviewsAction, postComment } from './async-actions';
+import { checkAuthAction, fetchOffersAction, fetchOffer, fetchOffersNearby, fetchReviewsAction, postComment, FetchFavorites as fetchFavorites, setFavorite } from './async-actions';
 
 const initialAuthState: AuthStateType = {
   status: AuthorizationStatus.NoAuth,
@@ -56,7 +56,8 @@ const initialOfferStateType: OfferStateType = {
     images: [''],
     maxAdults: 0,
   },
-  offersNearby: []
+  offersNearby: [],
+  favorites: []
 };
 
 
@@ -90,8 +91,6 @@ export const auth = createSlice({
       .addCase(checkAuthAction.rejected, (state) => {
         state.status = AuthorizationStatus.NoAuth;
       });
-
-
   },
 });
 
@@ -99,52 +98,50 @@ export const sortingAndOffersList = createSlice({
   name: 'sortingAndOffersList',
   initialState: initialSortingState,
   reducers: {
-
-    changingCity: (state, action:PayloadAction<string>) => {
+    changingCity: (state, action: PayloadAction<string>) => {
       state.city = action.payload;
     },
-    changingSortingPopular: (state, action:PayloadAction<string>) => {
+    changingSortingPopular: (state, action: PayloadAction<string>) => {
       state.sorting = action.payload;
     },
-    changingSortingPriceHighToLow: (state, action:PayloadAction<string>) => {
+    changingSortingPriceHighToLow: (state, action: PayloadAction<string>) => {
       state.sorting = action.payload;
       state.offersList = state.offersList.sort((a, b) => b.price - a.price);
     },
-    changingSortingPriceLowToHigh: (state, action:PayloadAction<string>) => {
+    changingSortingPriceLowToHigh: (state, action: PayloadAction<string>) => {
       state.sorting = action.payload;
       state.offersList = state.offersList.sort((a, b) => a.price - b.price);
     },
-    changingSortingTopRatedFirst: (state, action:PayloadAction<string>) => {
+    changingSortingTopRatedFirst: (state, action: PayloadAction<string>) => {
       state.sorting = action.payload;
       state.offersList = state.offersList.sort((a, b) => b.rating - a.rating);
     },
-    changingHoveredCard: (state, action:PayloadAction<string>) => {
+    changingHoveredCard: (state, action: PayloadAction<string>) => {
       state.hoveredCard = action.payload;
     },
-    setDataLoadingStatus: (state, action:PayloadAction<boolean>) => {
+    setDataLoadingStatus: (state, action: PayloadAction<boolean>) => {
       state.isOffersDataLoading = action.payload;
     }
   },
   extraReducers(builder) {
     builder
-      .addCase(fetchOffersAction.fulfilled, (state, action: PayloadAction<OffersTypes>) => {
+      .addCase(fetchOffersAction.fulfilled, (state, action: PayloadAction<OffersTypes | []>) => {
         state.offersList = action.payload;
       })
       .addCase(fetchOffersAction.rejected, (state) => {
         state.offersList = [];
       });
   }
-
 });
 
 export const offer = createSlice({
   name: 'offer',
   initialState: initialOfferStateType,
   reducers: {},
-  extraReducers: (builder) =>{
+  extraReducers: (builder) => {
     builder
       .addCase(fetchOffer.fulfilled, (state, action: PayloadAction<OfferCardType>) => {
-        state.offer = action.payload ;
+        state.offer = action.payload;
       })
       .addCase(fetchOffer.rejected, (state) => {
         state.offer = offerWhenRejected;
@@ -161,12 +158,18 @@ export const offer = createSlice({
       .addCase(postComment.rejected, (state) => {
         state.reviews = [...state.reviews];
       })
-      .addCase(fetchReviewsAction.fulfilled, (state, action:PayloadAction<ReviewsTypes>) => {
+      .addCase(fetchReviewsAction.fulfilled, (state, action: PayloadAction<ReviewsTypes>) => {
         state.reviews = action.payload;
       })
       .addCase(fetchReviewsAction.rejected, (state) => {
         state.reviews = [];
-      });
+      })
+      .addCase(fetchFavorites.fulfilled, (state, action: PayloadAction<FavoritesType>) => {
+        state.favorites = action.payload;
+      })
+      .addCase(setFavorite.fulfilled, (state, action: PayloadAction<OfferCardType>) => {
+        state.favorites = [...state.favorites,action.payload];
+      })
   },
 });
 

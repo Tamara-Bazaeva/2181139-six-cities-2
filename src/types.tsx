@@ -1,6 +1,6 @@
 import store from '.';
 import { rootReducer } from './root-reducer';
-import {AuthorizationStatus} from './const';
+import { AuthorizationStatus } from './const';
 
 export type State = ReturnType<typeof rootReducer>;
 
@@ -71,6 +71,8 @@ export type OfferCardType =
     maxAdults: number;
   }
 
+export type FavoritesType = OfferCardType[];
+
 export type ReviewType = {
   id: string;
   date: string;
@@ -92,33 +94,34 @@ export type AuthorizationStatusType = {
   isPro: boolean;
   email: string;
   token: string;
-  };
+};
 
 export type AuthDataType = {
-    login: string;
-    password: string;
-  };
+  login: string;
+  password: string;
+};
 
 export type ReviewFormType = {
-    rating: number;
-    comment: string;
-  }
+  rating: number;
+  comment: string;
+}
 
 export type AuthStateType = {
-    status: AuthorizationStatus;
-    data: AuthorizationStatusType;
-  }
+  status: AuthorizationStatus;
+  data: AuthorizationStatusType;
+}
 
 export type SortingAndOffersListStateType = {
-    city: string;
-    sorting: string;
-    offersList: OffersTypes;
-    hoveredCard: string;
-    isOffersDataLoading: boolean;
-  }
+  city: string;
+  sorting: string;
+  offersList: OffersTypes;
+  hoveredCard: string;
+  isOffersDataLoading: boolean;
+}
 
 export type OfferStateType = {
-    reviews: ReviewsTypes;
-    offer: OfferCardType;
-    offersNearby: OffersTypes;
-  }
+  reviews: ReviewsTypes;
+  offer: OfferCardType;
+  offersNearby: OffersTypes;
+  favorites: FavoritesType
+}

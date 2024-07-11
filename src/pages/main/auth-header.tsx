@@ -3,7 +3,6 @@ import { useAppDispatch } from '../../hooks';
 import { AuthorizationStatus } from '../../const';
 import { auth } from '../../slice';
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { NameSpace } from '../../const';
 import { useSelector } from 'react-redux';
 import { State } from '../../types';
@@ -13,11 +12,10 @@ export default function AuthHeader(): JSX.Element {
   const dispatch = useAppDispatch();
   const authData = useSelector((state: State) => state[NameSpace.Auth].data);
   const authStatus = useSelector((state: State) => state[NameSpace.Auth].status);
-  const navigate = useNavigate();
+  const favAmount = useSelector((state: State) => state[NameSpace.Offer].favorites);
 
   useEffect(() => {
     if (authStatus === AuthorizationStatus.Auth){
-      navigate('/');
     }
   },[authStatus, authData]);
   function handler() {
@@ -31,7 +29,7 @@ export default function AuthHeader(): JSX.Element {
           <div className="header__avatar-wrapper user__avatar-wrapper">
           </div>
           <Link className="header__user-name user__name" to="/favorites">{authData.email}</Link>
-          <span className="header__favorite-count">3</span>
+          <span className="header__favorite-count">{favAmount.length}</span>
         </div>
       </li>
       <li className="header__nav-item">

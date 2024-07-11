@@ -1,4 +1,4 @@
-import { OffersType } from '../types';
+import { OffersType , FavoritesType, OfferCardType} from '../types';
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../hooks';
 import { sortingAndOffersList } from '../slice';
@@ -6,9 +6,10 @@ import { sortingAndOffersList } from '../slice';
 type OneCardProps = {
   offer: OffersType;
   onMouseEnter: (id: string) => void;
+  favoriteHandler: ({id, status} : {id: string, status: number}) => any;
 }
 
-function OneCard({ offer, onMouseEnter }: OneCardProps): JSX.Element {
+function OneCard({ offer, onMouseEnter, favoriteHandler }: OneCardProps): JSX.Element {
   const dispatch = useAppDispatch();
   const id = offer.id;
 
@@ -18,6 +19,11 @@ function OneCard({ offer, onMouseEnter }: OneCardProps): JSX.Element {
     mouseEnter(id);
   };
 
+  const favClick = () => {
+    favoriteHandler({ id, status: Number(!offer.isFavorite)});
+    console.log('')
+  }
+console.log(offer.isFavorite);
   return (
     <div onMouseEnter={function sendingId() {
       handler();
@@ -39,8 +45,9 @@ function OneCard({ offer, onMouseEnter }: OneCardProps): JSX.Element {
             <div className="place-card__price">
               <b className="place-card__price-value">{offer.price} euro</b>
               <span className="place-card__price-text">night</span>
+              <pre>{Number(offer.isFavorite)}</pre>
             </div>
-            <button className="place-card__bookmark-button button" type="button">
+            <button className='place-card__bookmark-button button place-card__bookmark-button--active' onClick={favClick} type="button">
               <svg className="place-card__bookmark-icon" width="18" height="19">
                 <use xlinkHref="#icon-bookmark"></use>
               </svg>

@@ -1,13 +1,19 @@
 import HeaderLogin from './header-login';
-import { OffersTypes } from '../../types';
 import FavCards from '../../components/fav-card';
+import { State } from '../../types';
+import { useSelector } from 'react-redux';
+import { NameSpace } from '../../const';
+import FavoritesEmpty from '../../favorites-empty';
 
-type FavoritesProps = {
-  offersData: OffersTypes;
+function Favorites() : JSX.Element {
+const favoriteCards = useSelector((state: State) => state[NameSpace.Offer].favorites);
+if (favoriteCards.length === 0){
+  return (
+    <div>
+<FavoritesEmpty/>
+    </div>
+  )
 }
-
-function Favorites({ offersData }: FavoritesProps): JSX.Element {
-  const allOffers = offersData;
   return (
     <div>
       <HeaderLogin />
@@ -15,7 +21,7 @@ function Favorites({ offersData }: FavoritesProps): JSX.Element {
         <section className="favorites">
           <h1 className="favorites__title">Saved listing</h1>
           <ul className="favorites__list">
-            {allOffers.map((offer) => <li className="favorites__locations-items" key={offer.id}> <FavCards key={offer.id} offers={offer} /></li>)}
+            {favoriteCards.map((fav) => <li className="favorites__locations-items" key={fav.id}> <FavCards key={fav.id} offers={fav} /></li>)}
           </ul>
         </section>
       </div>

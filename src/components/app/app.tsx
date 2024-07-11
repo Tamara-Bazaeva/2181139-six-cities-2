@@ -8,14 +8,10 @@ import NotFound from '../../pages/not-found';
 import PrivateRoute from '../private-route.tsx';
 import { useAppSelector } from '../../hooks.tsx';
 import { LoadingScreen } from '../../loading-screen.tsx';
-import { State } from '../../types.tsx';
-import { OffersTypes } from '../../types.tsx';
-import { useSelector } from 'react-redux/es/hooks/useSelector';
 import { NameSpace } from '../../const';
+import MainEmpty from '../../main-empty.tsx';
 
 function App() :JSX.Element {
-
-  const offersData = useSelector((state: State): OffersTypes => state[NameSpace.Sorting].offersList);
 
   const isQuestionsDataLoading = useAppSelector((state) => state[NameSpace.Sorting].isOffersDataLoading);
 
@@ -39,7 +35,7 @@ function App() :JSX.Element {
           path={AppRoute.Favorites}
           element={
             <PrivateRoute>
-              <Favorites offersData={offersData} />
+              <Favorites />
             </PrivateRoute>
           }
         />
@@ -51,6 +47,9 @@ function App() :JSX.Element {
           path="*"
           element={<NotFound/>}
         />
+        <Route
+        path={AppRoute.Empty}
+        element = {<MainEmpty/>}/>
       </Routes>
     </BrowserRouter>
   );

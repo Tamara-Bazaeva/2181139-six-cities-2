@@ -5,6 +5,8 @@ import React from 'react';
 import { NameSpace } from '../const';
 import { useSelector } from 'react-redux/es/hooks/useSelector';
 import { State } from '../types';
+import { setFavorite } from '../async-actions';
+import { useAppDispatch } from '../hooks';
 
 function CardsList(): JSX.Element {
 
@@ -13,15 +15,22 @@ function CardsList(): JSX.Element {
     setActiveCard(id);
   }
 
+  const dispatch = useAppDispatch();
   const handler = useCallback((id: string) => handlerCallback(id), [setActiveCard]);
+
+  const favoriteHandler = ({id, status} : {id: string, status: number}) => dispatch(setFavorite({id, status}));
 
   const allOffers = useSelector((state: State) => state[NameSpace.Sorting].offersList);
 
   const city = useSelector((state: State) => state[NameSpace.Sorting].city);
+
+  const offersByCity = allOffers.filter((of: OffersType) => of.city.name === city);
+
   return (
     <div className="cities__places-list places__list tabs__content">
 
-      {allOffers.filter((of: OffersType) => of.city.name === city).map((offer: OffersType) => <OneCard key={offer.id} offer={offer} onMouseEnter={handler}/>)}
+      {offersByCity.map((offer: OffersType) => <OneCard key={offer.id} offer={offer} onMouseEnter={handler} favoriteHandler={favoriteHandler}/>)}
+
     </div>
   );
 }

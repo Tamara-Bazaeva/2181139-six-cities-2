@@ -1,11 +1,10 @@
-import { AppDispatch, State, AuthDataType, OfferCardType } from './types';
+import { AppDispatch, State, AuthDataType, OfferCardType, FavoritesType } from './types';
 import { AxiosInstance, AxiosResponse } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { OffersTypes, ReviewsTypes, AuthorizationStatusType, ReviewFormType, ReviewType } from './types';
 import { AuthorizationStatus, offerWhenRejected } from './const';
 import { saveToken } from './token';
 import { sortingAndOffersList, auth } from './slice';
-
 
 export const fetchOffersAction = createAsyncThunk<OffersTypes, undefined, {
   dispatch: AppDispatch;
@@ -17,7 +16,11 @@ export const fetchOffersAction = createAsyncThunk<OffersTypes, undefined, {
   async (_arg, { dispatch, extra: api }) => {
     try {
       dispatch(sortingAndOffersList.actions.setDataLoadingStatus(true));
-      const resp = await api.get<OffersTypes>('/six-cities/offers');
+      const resp = await api.get<OffersTypes | [] >('/six-cities/offers');
+      if (resp.data.length === 0){
+        dispatch(sortingAndOffersList.actions.setDataLoadingStatus(false));
+        return [];
+      }
       dispatch(sortingAndOffersList.actions.setDataLoadingStatus(false));
       return resp.data;
     } catch {
@@ -137,9 +140,34 @@ export const postComment = createAsyncThunk<ReviewType, PostCommentParam, {
 
   async ({ id, rating, comment }, { extra: api }) => {
     const response = await api.post<ReviewFormType, AxiosResponse<ReviewType>>(`/six-cities/comments/${id}`, { rating, comment });
-    // dispatch(setComment(response.data));
     return response.data;
 
   }
 );
 
+export const FetchFavorites = createAsyncThunk<FavoritesType, undefined, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'fetchFavorites',
+
+  async (_arg, {extra: api}) => {
+   const response = await api.get<FavoritesType>('/six-cities/favorite');
+   return response.data;
+  }
+);
+
+export const setFavorite = createAsyncThunk<OfferCardType, {id: string, status: number} , {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'setFavorites',
+
+  async ({id, status}, {extra: api}) => {
+    console.log('запрос');
+   const response = await api.post<FavoritesType, AxiosResponse<OfferCardType>>(`/six-cities/favorite/${id}/${status}`);
+   return response.data;
+  }
+);

@@ -1,7 +1,7 @@
-import { OffersType } from '../types';
+import { OfferCardType } from '../types';
 
 type FavCardsProps = {
-  offers: OffersType;
+  offers: OfferCardType;
 }
 
 

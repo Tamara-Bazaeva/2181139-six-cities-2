@@ -30,7 +30,7 @@ export default function Map(): JSX.Element {
     if (map) {
       const markerLayer = layerGroup().addTo(map);
 
-      propPoints.forEach((point: OffersType) => {
+      propPoints?.forEach((point: OffersType) => {
         const marker = new Marker({
           lat: point.location.latitude,
           lng: point.location.longitude

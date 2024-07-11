@@ -4,13 +4,9 @@ import { useSelector } from 'react-redux/es/hooks/useSelector';
 import { RootState } from '.';
 import { NameSpace } from './const';
 
+export default function CitiesList() : JSX.Element {
 
-export type CityPropType = {
-  cities: string[];
-}
-
-export default function CitiesList({ cities }: CityPropType): JSX.Element {
-  const citiesList = cities;
+  const citiesList = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
   const dispatch = useAppDispatch();
   const cityFromState = useSelector((state : RootState) => state[NameSpace.Sorting].city);
 

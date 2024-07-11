@@ -1,16 +1,21 @@
-import CardsList from '../components/cards-list.tsx';
 import HeaderLogin from './main/header-login.tsx';
-import Map from './map.tsx';
 import CitiesList from '../cities-list.tsx';
-import Sorting from '../sorting.tsx';
-
-const citiesAll = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
-
+import { useSelector } from 'react-redux/es/hooks/useSelector';
+import { NameSpace } from '../const';
+import { State } from '../types.tsx';
+import { OffersType } from '../types.tsx';
+import MainEmpty from '../main-empty.tsx';
+import NotEmpty from '../components/not-empty.tsx';
 
 function MainPage(): JSX.Element {
 
-  return (
+  const allOffers = useSelector((state: State) => state[NameSpace.Sorting].offersList);
 
+  const city = useSelector((state: State) => state[NameSpace.Sorting].city);
+
+  const offersByCity = allOffers.filter((of: OffersType) => of.city.name === city);
+
+  return (
     <div>
       <div className="page page--gray page--main">
         <header className="header">
@@ -20,29 +25,16 @@ function MainPage(): JSX.Element {
           <h1 className="visually-hidden">Cities</h1>
           <div className="tabs">
             <section className="locations container">
-              <CitiesList cities={citiesAll} />
+              <CitiesList />
             </section>
           </div>
           <div className="cities">
-            <div className="cities__places-container container">
-              <section className="cities__places places">
-                <h2 className="visually-hidden">Places</h2>
-                <b className="places__found"> places to stay in Amsterdam</b>
-                <Sorting/>
-                <div className="cities__places-list places__list tabs__content">
-                  <CardsList />
-                </div>
-              </section>
-              <div className="cities__right-section">
-                <section className="cities__map map">
-                  <Map />
-                </section>
-              </div>
-            </div>
+            {offersByCity.length === 0 ? <MainEmpty/> :  <NotEmpty/>}
           </div>
         </main>
       </div>
     </div>
+
   );
 }
 
