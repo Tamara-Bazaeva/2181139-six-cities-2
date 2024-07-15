@@ -1,5 +1,5 @@
 import HeaderLogin from './header-login';
-import FavCards from '../../components/fav-card';
+import FavCard from '../../components/fav-card';
 import { State } from '../../types';
 import { useSelector } from 'react-redux';
 import { NameSpace } from '../../const';
@@ -21,7 +21,7 @@ if (favoriteCards.length === 0){
         <section className="favorites">
           <h1 className="favorites__title">Saved listing</h1>
           <ul className="favorites__list">
-            {favoriteCards.map((fav) => <li className="favorites__locations-items" key={fav.id}> <FavCards key={fav.id} offers={fav} /></li>)}
+            {favoriteCards.map((fav) => <li className="favorites__locations-items" key={fav.id}> <FavCard key={fav.id} offer={fav} /></li>)}
           </ul>
         </section>
       </div>

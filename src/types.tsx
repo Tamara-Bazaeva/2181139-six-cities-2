@@ -125,3 +125,8 @@ export type OfferStateType = {
   offersNearby: OffersTypes;
   favorites: FavoritesType
 }
+
+export type FavArgType = {
+  id: string;
+  status: number;
+}

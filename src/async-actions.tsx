@@ -1,4 +1,4 @@
-import { AppDispatch, State, AuthDataType, OfferCardType, FavoritesType } from './types';
+import { AppDispatch, State, AuthDataType, OfferCardType, FavoritesType, FavArgType } from './types';
 import { AxiosInstance, AxiosResponse } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { OffersTypes, ReviewsTypes, AuthorizationStatusType, ReviewFormType, ReviewType } from './types';
@@ -106,6 +106,8 @@ export const loginAction = createAsyncThunk<void, AuthDataType, {
 
       saveToken(token);
       dispatch(auth.actions.requireAuthorization(AuthorizationStatus.Auth));
+      dispatch(checkAuthAction(AuthorizationStatus.Auth));
+
     } catch {
       dispatch(auth.actions.requireAuthorization(AuthorizationStatus.NoAuth));
     }
@@ -145,7 +147,7 @@ export const postComment = createAsyncThunk<ReviewType, PostCommentParam, {
   }
 );
 
-export const FetchFavorites = createAsyncThunk<FavoritesType, undefined, {
+export const fetchFavorites = createAsyncThunk<FavoritesType, undefined, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
@@ -154,20 +156,22 @@ export const FetchFavorites = createAsyncThunk<FavoritesType, undefined, {
 
   async (_arg, {extra: api}) => {
    const response = await api.get<FavoritesType>('/six-cities/favorite');
+
    return response.data;
   }
 );
 
-export const setFavorite = createAsyncThunk<OfferCardType, {id: string, status: number} , {
+export const setFavorite = createAsyncThunk<OfferCardType, FavArgType, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'setFavorites',
 
-  async ({id, status}, {extra: api}) => {
-    console.log('запрос');
-   const response = await api.post<FavoritesType, AxiosResponse<OfferCardType>>(`/six-cities/favorite/${id}/${status}`);
-   return response.data;
+  async ({id, status}, {dispatch, extra: api}) => {
+   const resp = await api.post<FavArgType, AxiosResponse<OfferCardType>>(`/six-cities/favorite/${id}/${status}`);
+   dispatch(fetchFavorites());
+   dispatch(fetchOffersAction());
+   return resp.data as OfferCardType;
   }
 );

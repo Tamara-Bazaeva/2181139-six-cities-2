@@ -1,7 +1,7 @@
 import { AuthStateType, AuthorizationStatusType, SortingAndOffersListStateType, OffersTypes, OfferStateType, OfferCardType, ReviewType, ReviewsTypes, FavoritesType } from './types';
 import { AuthorizationStatus, offerWhenRejected } from './const';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { checkAuthAction, fetchOffersAction, fetchOffer, fetchOffersNearby, fetchReviewsAction, postComment, FetchFavorites as fetchFavorites, setFavorite } from './async-actions';
+import { checkAuthAction, fetchOffersAction, fetchOffer, fetchOffersNearby, fetchReviewsAction, postComment, fetchFavorites as fetchFavorites, setFavorite } from './async-actions';
 
 const initialAuthState: AuthStateType = {
   status: AuthorizationStatus.NoAuth,

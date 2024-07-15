@@ -1,5 +1,5 @@
 import OneCard from './one-card';
-import { OffersType } from '../types';
+import { FavArgType, OffersType } from '../types';
 import { useState, useCallback } from 'react';
 import React from 'react';
 import { NameSpace } from '../const';
@@ -18,7 +18,7 @@ function CardsList(): JSX.Element {
   const dispatch = useAppDispatch();
   const handler = useCallback((id: string) => handlerCallback(id), [setActiveCard]);
 
-  const favoriteHandler = ({id, status} : {id: string, status: number}) => dispatch(setFavorite({id, status}));
+  const favoriteHandler = ({id, status} : FavArgType) => dispatch(setFavorite({id, status}));
 
   const allOffers = useSelector((state: State) => state[NameSpace.Sorting].offersList);
 
@@ -29,7 +29,7 @@ function CardsList(): JSX.Element {
   return (
     <div className="cities__places-list places__list tabs__content">
 
-      {offersByCity.map((offer: OffersType) => <OneCard key={offer.id} offer={offer} onMouseEnter={handler} favoriteHandler={favoriteHandler}/>)}
+      {offersByCity.map((offer: OffersType) => <OneCard key={offer.id} offer={offer} onMouseEnter={handler} onSetFavorite={favoriteHandler}/>)}
 
     </div>
   );
