@@ -18,7 +18,11 @@ function CardsList(): JSX.Element {
   const dispatch = useAppDispatch();
   const handler = useCallback((id: string) => handlerCallback(id), [setActiveCard]);
 
-  const favoriteHandler = ({id, status} : FavArgType) => dispatch(setFavorite({id, status}));
+  const favoriteHandler = useCallback(
+    ({id, status} : FavArgType ) => {
+      dispatch(setFavorite({id, status}))},
+     [dispatch]
+  );
 
   const allOffers = useSelector((state: State) => state[NameSpace.Sorting].offersList);
 
@@ -36,3 +40,4 @@ function CardsList(): JSX.Element {
 }
 
 export default React.memo(CardsList);
+

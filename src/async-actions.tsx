@@ -156,7 +156,6 @@ export const fetchFavorites = createAsyncThunk<FavoritesType, undefined, {
 
   async (_arg, {extra: api}) => {
    const response = await api.get<FavoritesType>('/six-cities/favorite');
-
    return response.data;
   }
 );

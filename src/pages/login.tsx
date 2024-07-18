@@ -39,7 +39,7 @@ function Login(): JSX.Element {
   function submit(evt: FormEvent<HTMLFormElement>) {
     evt.preventDefault();
     dispatch(loginAction({login: formData.login, password: formData.password}));
-    dispatch(auth.actions.requireAuthorization(AuthorizationStatus.Auth));
+    // dispatch(auth.actions.requireAuthorization(AuthorizationStatus.Auth));
     navigate('/');
   }
 
