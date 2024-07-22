@@ -9,7 +9,6 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { rootReducer } from './root-reducer';
 
-
 export const api = createApi();
 
 const store = configureStore({

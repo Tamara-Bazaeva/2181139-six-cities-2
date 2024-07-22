@@ -4,7 +4,6 @@ type FavCardsProps = {
   offer: OfferCardType;
 }
 
-
 export default function FavCard({offer}: FavCardsProps): JSX.Element {
   return (
     <article className="favorites__card place-card">

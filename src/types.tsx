@@ -108,7 +108,7 @@ export type ReviewFormType = {
 
 export type AuthStateType = {
   status: AuthorizationStatus;
-  data: AuthorizationStatusType;
+  data: AuthorizationStatusType | undefined;
 }
 
 export type SortingAndOffersListStateType = {
@@ -123,10 +123,21 @@ export type OfferStateType = {
   reviews: ReviewsTypes;
   offer: OfferCardType;
   offersNearby: OffersTypes;
-  favorites: FavoritesType
+  favorites: FavoritesType;
 }
 
 export type FavArgType = {
   id: string;
   status: number;
 }
+
+export type CheckAuthResponse = {
+  status: AuthorizationStatus;
+  data?: AuthorizationStatusType;
+};
+
+export type CheckAuthRequest = {
+  status: AuthorizationStatus;
+  data?: AuthorizationStatusType;
+};
+

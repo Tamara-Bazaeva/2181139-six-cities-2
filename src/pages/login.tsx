@@ -1,27 +1,27 @@
 import { Link } from 'react-router-dom';
 import { useAppDispatch} from '../hooks';
 import { useState, ChangeEvent, FormEvent } from 'react';
-import { loginAction } from '../async-actions';
 import { AuthorizationStatus } from '../const';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { auth } from '../slice';
+// import { auth } from '../slice';
 import { NameSpace } from '../const';
 import { useSelector } from 'react-redux';
 import { State } from '../types';
+import { loginAction } from '../async-actions';
 
 function Login(): JSX.Element {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const authStatus = useSelector((state: State) => state[NameSpace.Auth].status);
+  const authData = useSelector((state: State) => state[NameSpace.Auth].data);
+
   const [formData, setFormData] = useState(
     {
       login: '',
       password: ''
     }
   );
-
-  const authStatus = useSelector((state: State) => state[NameSpace.Auth].status);
-  const authData = useSelector((state: State) => state[NameSpace.Auth].data);
 
   useEffect(() => {
     if (authStatus === AuthorizationStatus.Auth){
@@ -44,7 +44,6 @@ function Login(): JSX.Element {
   }
 
   return (
-
     <div className="page page--gray page--login">
       <header className="header">
         <div className="container">
@@ -57,7 +56,6 @@ function Login(): JSX.Element {
           </div>
         </div>
       </header>
-
       <main className="page__main page__main--login">
         <div className="page__login-container container">
           <section className="login">

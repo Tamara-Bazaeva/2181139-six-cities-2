@@ -1,7 +1,7 @@
 import { OfferCardType, ReviewsTypes , OffersTypes} from '../../types';
 import HeaderLogin from './header-login';
 import Map from '../map';
-import ReviewCard from '../../components/reviewCard';
+import ReviewCard from '../../components/review-card';
 import OffersListNearby from '../../components/offer-card-list-nearby';
 import { v4 as uuidv4} from 'uuid';
 
@@ -12,9 +12,7 @@ type OfferCopmType = {
 }
 
 function OfferComp({oneOffer, reviews, offersNear} : OfferCopmType): JSX.Element {
-
   const uniqueId1 = uuidv4();
-
   return (
     <div>
       <HeaderLogin />
@@ -94,7 +92,7 @@ function OfferComp({oneOffer, reviews, offersNear} : OfferCopmType): JSX.Element
                 </div>
               </div>
               <section className="offer__reviews reviews">
-                <ReviewCard reviews={reviews} />
+                <ReviewCard reviews={reviews}/>
               </section>
             </div>
           </div>

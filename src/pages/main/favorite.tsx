@@ -6,14 +6,14 @@ import { NameSpace } from '../../const';
 import FavoritesEmpty from '../../favorites-empty';
 
 function Favorites() : JSX.Element {
-const favoriteCards = useSelector((state: State) => state[NameSpace.Offer].favorites);
-if (favoriteCards.length === 0){
-  return (
-    <div>
-<FavoritesEmpty/>
-    </div>
-  )
-}
+  const favoriteCards = useSelector((state: State) => state[NameSpace.Offer].favorites);
+  if (favoriteCards.length === 0){
+    return (
+      <div>
+        <FavoritesEmpty/>
+      </div>
+    );
+  }
   return (
     <div>
       <HeaderLogin />

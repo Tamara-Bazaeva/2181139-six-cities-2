@@ -1,17 +1,11 @@
-import { AuthStateType, AuthorizationStatusType, SortingAndOffersListStateType, OffersTypes, OfferStateType, OfferCardType, ReviewType, ReviewsTypes, FavoritesType } from './types';
+import { AuthStateType, SortingAndOffersListStateType, OffersTypes, OfferStateType, OfferCardType, ReviewType, ReviewsTypes, FavoritesType , CheckAuthResponse} from './types';
 import { AuthorizationStatus, offerWhenRejected } from './const';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { checkAuthAction, fetchOffersAction, fetchOffer, fetchOffersNearby, fetchReviewsAction, postComment, fetchFavorites as fetchFavorites, setFavorite } from './async-actions';
 
 const initialAuthState: AuthStateType = {
   status: AuthorizationStatus.NoAuth,
-  data: {
-    name: '',
-    avatarUrl: '',
-    isPro: false,
-    email: '',
-    token: ''
-  },
+  data: undefined,
 };
 
 const initialSortingState: SortingAndOffersListStateType = {
@@ -60,7 +54,6 @@ const initialOfferStateType: OfferStateType = {
   favorites: []
 };
 
-
 export const auth = createSlice({
   name: 'auth',
   initialState: initialAuthState,
@@ -71,22 +64,9 @@ export const auth = createSlice({
   },
   extraReducers(builder) {
     builder
-
-      .addCase(checkAuthAction.fulfilled, (state, action: PayloadAction<{ status: AuthorizationStatus; data: AuthorizationStatusType } | AuthorizationStatus.NoAuth | undefined | AuthorizationStatus.Auth>) => {
-
-        if (typeof action.payload === 'string' && action.payload === AuthorizationStatus.NoAuth) {
-          state.status = AuthorizationStatus.NoAuth;
-          return;
-        }
-        if (typeof action.payload === 'string' && action.payload === AuthorizationStatus.Auth) {
-          state.status = AuthorizationStatus.Auth;
-          return;
-        }
-
-        if (action.payload?.status && action.payload?.data) {
-          state.status = action.payload.status;
-          state.data = action.payload.data;
-        }
+      .addCase(checkAuthAction.fulfilled, (state, action: PayloadAction<CheckAuthResponse>) => {
+        state.data = action.payload.data;
+        state.status = action.payload.status;
       })
       .addCase(checkAuthAction.rejected, (state) => {
         state.status = AuthorizationStatus.NoAuth;
@@ -169,7 +149,7 @@ export const offer = createSlice({
       })
       .addCase(setFavorite.fulfilled, (state, action: PayloadAction<OfferCardType>) => {
         state.favorites = [...state.favorites,action.payload];
-      })
+      });
   },
 });
 

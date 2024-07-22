@@ -1,5 +1,5 @@
-import CardsList from '../components/cards-list.tsx';
-import Map from '../pages/map.tsx'
+import CardsList from './card-list.tsx';
+import Map from '../pages/map.tsx';
 import Sorting from '../sorting.tsx';
 import { State } from '../types.tsx';
 import { useSelector } from 'react-redux';

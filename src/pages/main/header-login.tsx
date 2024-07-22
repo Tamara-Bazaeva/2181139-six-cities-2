@@ -9,7 +9,6 @@ import { State } from '../../types';
 
 function HeaderLogin(): JSX.Element {
   const authStatus = useSelector((state: State) => state[NameSpace.Auth].status);
-
   return (
     <div className="container">
       <div className="header__wrapper">

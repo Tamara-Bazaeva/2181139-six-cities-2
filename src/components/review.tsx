@@ -1,10 +1,11 @@
-import { ReviewType } from '../types';
+import {ReviewType } from '../types';
 
 type ReviewPropsTypes = {
   review: ReviewType;
 }
 
 export default function Review({ review }: ReviewPropsTypes): JSX.Element {
+
   return (
     <div>
       <div className="reviews__user user">
@@ -18,8 +19,8 @@ export default function Review({ review }: ReviewPropsTypes): JSX.Element {
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={{ width: '80%' }}></span>
-            <span className="visually-hidden">{review.rating}</span>
+            <span style={{width: `${review.rating / 0.05}%`}}></span>
+            <span className="visually-hidden"></span>
           </div>
         </div>
         <p className="reviews__text">

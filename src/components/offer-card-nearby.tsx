@@ -2,7 +2,6 @@ import { OffersType } from '../types';
 
 type OfferNearbyProps = {
   offer: OffersType;
-
 }
 
 export default function OfferNearby({ offer }: OfferNearbyProps): JSX.Element {

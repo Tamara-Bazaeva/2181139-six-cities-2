@@ -15,7 +15,6 @@ export default function CitiesList() : JSX.Element {
       {citiesList.map((city) => (
         <div onClick={function selectCity() {
           dispatch(sortingAndOffersList.actions.changingCity(city));
-
         }} key={city}
         >
           <li className="locations__item" key={city}>

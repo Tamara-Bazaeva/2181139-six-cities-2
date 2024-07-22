@@ -24,12 +24,10 @@ export const createApi = (): AxiosInstance => {
   });
   api.interceptors.request.use(
     (config) => {
-
       const token = getToken();
       if (token && config.headers) {
         config.headers['x-token'] = token;
       }
-
       return config;
     },
   );
@@ -39,13 +37,9 @@ export const createApi = (): AxiosInstance => {
     (error: AxiosError<DetailMessageType>) => {
       if (error.response && shouldDisplayError(error.response)) {
         const detailMessage = (error.response.data);
-
         toast.warn(detailMessage.message);
       }
-
       throw error;
-
-
     });
 
   return api;

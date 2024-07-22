@@ -1,4 +1,4 @@
-import { AppDispatch, State, AuthDataType, OfferCardType, FavoritesType, FavArgType } from './types';
+import { AppDispatch, State, AuthDataType, OfferCardType, FavoritesType, FavArgType, CheckAuthRequest } from './types';
 import { AxiosInstance, AxiosResponse } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { OffersTypes, ReviewsTypes, AuthorizationStatusType, ReviewFormType, ReviewType } from './types';
@@ -28,32 +28,27 @@ export const fetchOffersAction = createAsyncThunk<OffersTypes, undefined, {
       return [];
     }
   },
-
 );
 
-export const checkAuthAction = createAsyncThunk<{ status: AuthorizationStatus.Auth; data: AuthorizationStatusType } | AuthorizationStatus.NoAuth | undefined, undefined | AuthorizationStatus.NoAuth | AuthorizationStatus.Auth, {
+export const checkAuthAction = createAsyncThunk<CheckAuthRequest, undefined, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'requireAuthorization',
-
-  async (_arg, { extra: api }) => {
+  async (_arg, { extra: api, rejectWithValue }) => {
     try {
-      const resp = await api.get<AuthorizationStatusType>('/six-cities/login');
-      if (resp.status === 200) {
-        return {
-          status: AuthorizationStatus.Auth,
-          data: resp.data
-        };
-      }
-
-    } catch {
-
-      return AuthorizationStatus.NoAuth;
+      const response = await api.get<AuthorizationStatusType>('/six-cities/login');
+      return {
+        data: response.data,
+        status: AuthorizationStatus.Auth,
+      };
+    } catch (error) {
+      return rejectWithValue({
+        status: AuthorizationStatus.NoAuth,
+      });
     }
   },
-
 );
 
 export const fetchReviewsAction = createAsyncThunk<ReviewsTypes, string, {
@@ -106,7 +101,7 @@ export const loginAction = createAsyncThunk<void, AuthDataType, {
 
       saveToken(token);
       dispatch(auth.actions.requireAuthorization(AuthorizationStatus.Auth));
-      dispatch(checkAuthAction(AuthorizationStatus.Auth));
+      dispatch(checkAuthAction());
 
     } catch {
       dispatch(auth.actions.requireAuthorization(AuthorizationStatus.NoAuth));
@@ -123,7 +118,6 @@ export const fetchOffersNearby = createAsyncThunk<OffersTypes, string, {
   async (id: string, { extra: api }) => {
     try {
       const response = await api.get<OffersTypes>(`/six-cities/offers/${id}/nearby`);
-
       return response.data;
     } catch {
       return [];
@@ -155,8 +149,8 @@ export const fetchFavorites = createAsyncThunk<FavoritesType, undefined, {
   'fetchFavorites',
 
   async (_arg, {extra: api}) => {
-   const response = await api.get<FavoritesType>('/six-cities/favorite');
-   return response.data;
+    const response = await api.get<FavoritesType>('/six-cities/favorite');
+    return response.data;
   }
 );
 
@@ -168,9 +162,9 @@ export const setFavorite = createAsyncThunk<OfferCardType, FavArgType, {
   'setFavorites',
 
   async ({id, status}, {dispatch, extra: api}) => {
-   const resp = await api.post<FavArgType, AxiosResponse<OfferCardType>>(`/six-cities/favorite/${id}/${status}`);
-   dispatch(fetchFavorites());
-   dispatch(fetchOffersAction());
-   return resp.data as OfferCardType;
+    const resp = await api.post<FavArgType, AxiosResponse<OfferCardType>>(`/six-cities/favorite/${id}/${status}`);
+    dispatch(fetchFavorites());
+    dispatch(fetchOffersAction());
+    return resp.data ;
   }
 );

@@ -48,8 +48,9 @@ function App() :JSX.Element {
           element={<NotFound/>}
         />
         <Route
-        path={AppRoute.Empty}
-        element = {<MainEmpty/>}/>
+          path={AppRoute.Empty}
+          element = {<MainEmpty/>}
+        />
       </Routes>
     </BrowserRouter>
   );
