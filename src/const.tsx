@@ -48,6 +48,7 @@ export const offerWhenRejected: OfferCardType = {
 
 export enum NameSpace {
   Auth = 'AUTH',
-  Sorting = 'SORTING',
+  Offers = 'OFFERS',
   Offer = 'OFFER',
+  Reviews = 'REVIEWS'
 }

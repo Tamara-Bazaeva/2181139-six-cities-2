@@ -4,7 +4,8 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { OffersTypes, ReviewsTypes, AuthorizationStatusType, ReviewFormType, ReviewType } from './types';
 import { AuthorizationStatus, offerWhenRejected } from './const';
 import { saveToken } from './token';
-import { sortingAndOffersList, auth } from './slice';
+import { auth } from '../src/store.ts/auth.slice';
+import { offersSlice } from './store.ts/offers.slice';
 
 export const fetchOffersAction = createAsyncThunk<OffersTypes, undefined, {
   dispatch: AppDispatch;
@@ -15,16 +16,16 @@ export const fetchOffersAction = createAsyncThunk<OffersTypes, undefined, {
   'loadingCards',
   async (_arg, { dispatch, extra: api }) => {
     try {
-      dispatch(sortingAndOffersList.actions.setDataLoadingStatus(true));
+      dispatch(offersSlice.actions.setDataLoadingStatus(true));
       const resp = await api.get<OffersTypes | [] >('/six-cities/offers');
       if (resp.data.length === 0){
-        dispatch(sortingAndOffersList.actions.setDataLoadingStatus(false));
+        dispatch(offersSlice.actions.setDataLoadingStatus(false));
         return [];
       }
-      dispatch(sortingAndOffersList.actions.setDataLoadingStatus(false));
+      dispatch(offersSlice.actions.setDataLoadingStatus(false));
       return resp.data;
     } catch {
-      dispatch(sortingAndOffersList.actions.setDataLoadingStatus(false));
+      dispatch(offersSlice.actions.setDataLoadingStatus(false));
       return [];
     }
   },

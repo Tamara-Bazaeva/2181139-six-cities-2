@@ -1,14 +1,13 @@
+import Sorting from '../sorting.tsx';
 import CardsList from './card-list.tsx';
 import Map from '../pages/map.tsx';
-import Sorting from '../sorting.tsx';
-import { State } from '../types.tsx';
 import { useSelector } from 'react-redux';
+import { OffersType, State } from '../types.tsx';
 import { NameSpace } from '../const.tsx';
-import { OffersType } from '../types.tsx';
 
 function NotEmpty(): JSX.Element {
-  const city = useSelector((state: State) => state[NameSpace.Sorting].city);
-  const allOffers = useSelector((state: State) => state[NameSpace.Sorting].offersList);
+  const city = useSelector((state: State) => state[NameSpace.Offers].city);
+  const allOffers = useSelector((state: State) => state[NameSpace.Offers].offers);
   const offersByCity = allOffers.filter((of: OffersType) => of.city.name === city);
 
   return (

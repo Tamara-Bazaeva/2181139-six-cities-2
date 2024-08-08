@@ -106,11 +106,6 @@ export type ReviewFormType = {
   comment: string;
 }
 
-export type AuthStateType = {
-  status: AuthorizationStatus;
-  data: AuthorizationStatusType | undefined;
-}
-
 export type SortingAndOffersListStateType = {
   city: string;
   sorting: string;
@@ -120,7 +115,6 @@ export type SortingAndOffersListStateType = {
 }
 
 export type OfferStateType = {
-  reviews: ReviewsTypes;
   offer: OfferCardType;
   offersNearby: OffersTypes;
   favorites: FavoritesType;

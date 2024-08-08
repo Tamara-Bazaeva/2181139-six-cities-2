@@ -13,7 +13,7 @@ import MainEmpty from '../../main-empty.tsx';
 
 function App() :JSX.Element {
 
-  const isQuestionsDataLoading = useAppSelector((state) => state[NameSpace.Sorting].isOffersDataLoading);
+  const isQuestionsDataLoading = useAppSelector((state) => state[NameSpace.Offers].isOffersDataLoading);
 
   if(isQuestionsDataLoading){
     return (

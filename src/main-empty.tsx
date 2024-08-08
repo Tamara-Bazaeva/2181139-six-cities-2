@@ -4,7 +4,7 @@ import { NameSpace } from './const';
 
 
 export default function MainEmpty(): JSX.Element {
-  const cityFromState = useSelector((state: RootState) => state[NameSpace.Sorting].city);
+  const cityFromState = useSelector((state: RootState) => state[NameSpace.Offers].city);
   return (
     <main className="page__main page__main--index page__main--index-empty">
       <section className="locations container">

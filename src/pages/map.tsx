@@ -21,8 +21,8 @@ const currentCustomIcon = new Icon({
 });
 
 export default function Map(): JSX.Element {
-  const propPoints = useSelector((state: State) => state[NameSpace.Sorting].offersList);
-  const hoveredCard = useSelector((state: State) => state[NameSpace.Sorting].hoveredCard);
+  const propPoints = useSelector((state: State) => state[NameSpace.Offers].offers);
+  const hoveredCard = useSelector((state: State) => state[NameSpace.Offers].hoveredCard);
   const mapRef = useRef(null);
   const map = useMap(mapRef, propPoints[0]);
 

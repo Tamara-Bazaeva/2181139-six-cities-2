@@ -1,11 +1,11 @@
 import { OffersType , FavArgType} from '../types';
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../hooks';
-import { sortingAndOffersList } from '../slice';
 import { AuthorizationStatus } from '../const';
 import { useSelector } from 'react-redux';
 import { State } from '../types';
 import { NameSpace } from '../const';
+import { setHoveredCardId } from '../store.ts/offers.slice'
 
 type OneCardProps = {
   offer: OffersType;
@@ -13,7 +13,7 @@ type OneCardProps = {
   onSetFavorite: ({id, status} : FavArgType) => void;
 }
 
-function OneCard({ offer, onMouseEnter, onSetFavorite }: OneCardProps): JSX.Element {
+function CardListItem({ offer, onMouseEnter, onSetFavorite }: OneCardProps): JSX.Element {
   const dispatch = useAppDispatch();
   const status = useSelector((state: State) => state[NameSpace.Auth].status);
   const handleFavoriteClick = () => {
@@ -28,7 +28,7 @@ function OneCard({ offer, onMouseEnter, onSetFavorite }: OneCardProps): JSX.Elem
   };
   const handleMouseEnter = () => {
     onMouseEnter(offer.id);
-    dispatch(sortingAndOffersList.actions.changingHoveredCard(offer.id));
+    dispatch(setHoveredCardId(offer.id));
   };
 
   return (
@@ -76,4 +76,4 @@ function OneCard({ offer, onMouseEnter, onSetFavorite }: OneCardProps): JSX.Elem
 }
 
 
-export default OneCard;
+export default CardListItem;

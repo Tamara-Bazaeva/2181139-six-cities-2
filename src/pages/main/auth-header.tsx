@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks';
 import { AuthorizationStatus } from '../../const';
-import { auth } from '../../slice';
+import { auth } from '../../store.ts/auth.slice'
 import { useEffect } from 'react';
 import { NameSpace } from '../../const';
 import { useSelector } from 'react-redux';

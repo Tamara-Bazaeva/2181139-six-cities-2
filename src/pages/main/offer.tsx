@@ -21,7 +21,7 @@ function Offer(): JSX.Element {
     }
   }, [id, dispatch]);
 
-  const allReviews = useSelector((state: State) => state[NameSpace.Offer].reviews);
+  const allReviews = useSelector((state: State) => state[NameSpace.Reviews].reviews);
   const offerCard = useSelector((state: State) => state[NameSpace.Offer].offer);
   const offersNearBy = useSelector((state: State) => state[NameSpace.Offer].offersNearby);
 

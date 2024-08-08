@@ -9,8 +9,8 @@ import NotEmpty from '../components/not-empty.tsx';
 
 function MainPage(): JSX.Element {
 
-  const allOffers = useSelector((state: State) => state[NameSpace.Sorting].offersList);
-  const city = useSelector((state: State) => state[NameSpace.Sorting].city);
+  const allOffers = useSelector((state: State) => state[NameSpace.Offers].offers);
+  const city = useSelector((state: State) => state[NameSpace.Offers].city);
   const offersByCity = allOffers.filter((of: OffersType) => of.city.name === city);
   return (
     <div>
