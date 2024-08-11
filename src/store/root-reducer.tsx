@@ -1,9 +1,9 @@
 import {combineReducers} from '@reduxjs/toolkit';
-import {NameSpace} from './const';
-import {auth} from '../src/store.ts/auth.slice';
-import { offerSlice } from './store.ts/offer.slice';
-import { offersSlice } from './store.ts/offers.slice';
-import { reviewsSlice } from './store.ts/review.slice';
+import {NameSpace} from '../const';
+import {auth} from './auth/auth.slice';
+import { offerSlice } from './offer/offer.slice';
+import { offersSlice } from './offers/offers.slice';
+import { reviewsSlice } from './review/review.slice';
 
 export const rootReducer = combineReducers({
   [NameSpace.Auth]: auth.reducer,

@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './components/app/app';
+import App from './components/app';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
-import { createApi } from './api';
-import { fetchOffersAction, checkAuthAction } from './async-actions';
+import { createApi } from './store/api';
+import { fetchOffersAction, checkAuthAction } from './store/async-actions';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { rootReducer } from './root-reducer';
+import { rootReducer } from './store/root-reducer';
 
 export const api = createApi();
 

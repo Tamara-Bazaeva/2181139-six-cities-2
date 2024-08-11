@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { NameSpace } from '../const';
 import { useSelector } from 'react-redux';
 import { State } from '../types';
-import { loginAction } from '../async-actions';
+import { loginAction } from '../store/async-actions';
 
 function Login(): JSX.Element {
   const dispatch = useAppDispatch();

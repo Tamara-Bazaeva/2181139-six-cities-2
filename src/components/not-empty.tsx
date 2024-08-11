@@ -1,6 +1,6 @@
-import Sorting from '../sorting.tsx';
+import Sorting from './sorting.tsx';
 import CardsList from './card-list.tsx';
-import Map from '../pages/map.tsx';
+import Map from './map.tsx';
 import { useSelector } from 'react-redux';
 import { OffersType, State } from '../types.tsx';
 import { NameSpace } from '../const.tsx';

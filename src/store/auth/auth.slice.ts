@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { AuthorizationStatusType , CheckAuthResponse} from '../types';
-import { AuthorizationStatus } from '../const';
+import { AuthorizationStatusType , CheckAuthResponse} from '../../types';
+import { AuthorizationStatus } from '../../const';
 import { checkAuthAction } from '../async-actions';
 
 export type AuthStateType = {

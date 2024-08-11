@@ -1,11 +1,11 @@
-import HeaderLogin from './main/header-login.tsx';
-import CitiesList from '../cities-list.tsx';
+import HeaderLogin from './header-login.tsx';
+import CitiesList from './cities-list.tsx';
 import { useSelector } from 'react-redux/es/hooks/useSelector';
-import { NameSpace } from '../const';
+import { NameSpace } from '../const.tsx';
 import { State } from '../types.tsx';
 import { OffersType } from '../types.tsx';
-import MainEmpty from '../main-empty.tsx';
-import NotEmpty from '../components/not-empty.tsx';
+import MainEmpty from './main-empty.tsx';
+import NotEmpty from './not-empty.tsx';
 
 function MainPage(): JSX.Element {
 

@@ -5,7 +5,7 @@ import {
   postComment,
 } from '../async-actions';
 
-import { ReviewsTypes, ReviewType } from '../types';
+import { ReviewsTypes, ReviewType } from '../../types';
 
 type ReviewStateType = {
   reviews: ReviewsTypes;

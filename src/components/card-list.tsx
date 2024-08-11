@@ -5,7 +5,7 @@ import React from 'react';
 import { NameSpace } from '../const';
 import { useSelector } from 'react-redux/es/hooks/useSelector';
 import { State } from '../types';
-import { setFavorite } from '../async-actions';
+import { setFavorite } from '../store/async-actions';
 import { useAppDispatch } from '../hooks';
 
 function CardsList(): JSX.Element {

@@ -1,5 +1,5 @@
 import store from '.';
-import { rootReducer } from './root-reducer';
+import { rootReducer } from './store/root-reducer';
 import { AuthorizationStatus } from './const';
 
 export type State = ReturnType<typeof rootReducer>;

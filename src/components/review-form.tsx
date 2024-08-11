@@ -1,5 +1,5 @@
 import { ChangeEvent, useState, FormEvent, Fragment } from 'react';
-import { postComment } from '../async-actions';
+import { postComment } from '../store/async-actions';
 import { useAppDispatch } from '../hooks';
 import { NameSpace } from '../const';
 import { useSelector } from 'react-redux';

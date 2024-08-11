@@ -1,6 +1,6 @@
 import { useEffect, useState, MutableRefObject, useRef } from 'react';
 import { Map, TileLayer } from 'leaflet';
-import { OffersType } from '../../types';
+import { OffersType } from './types';
 
 export default function useMap(mapRef: MutableRefObject<HTMLElement | null>, offer: OffersType): Map | null {
   const [map, setMap] = useState<Map | null>(null);

@@ -1,12 +1,12 @@
-import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from '../pages/main/url.tsx';
+import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from '../url.tsx';
 import { useRef, useEffect } from 'react';
 import { Icon, Marker, layerGroup } from 'leaflet';
-import useMap from './main/useMap.tsx';
+import useMap from '../useMap.tsx';
 import 'leaflet/dist/leaflet.css';
 import { OffersType} from '../types.tsx';
-import { NameSpace } from '../const';
+import { NameSpace } from '../const.tsx';
 import { useSelector } from 'react-redux';
-import { State } from '../types';
+import { State } from '../types.tsx';
 
 const defaultCustomIcon = new Icon({
   iconUrl: URL_MARKER_DEFAULT,
@@ -48,6 +48,6 @@ export default function Map(): JSX.Element {
     }
   }, [map, propPoints, hoveredCard]);
 
-  return <div style={{ height: '600px' , margin: 40}} ref={mapRef}></div>;
+  return <div style={{ height: '100%'}} ref={mapRef}></div>;
 }
 

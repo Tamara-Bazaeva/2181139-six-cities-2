@@ -1,8 +1,8 @@
-import { useAppDispatch } from './hooks';
+import { useAppDispatch } from '../hooks';
 import { useSelector } from 'react-redux/es/hooks/useSelector';
-import { RootState } from '.';
-import { NameSpace } from './const';
-import { changeCity } from './store.ts/offers.slice';
+import { RootState } from '..';
+import { NameSpace } from '../const';
+import { changeCity } from '../store/offers/offers.slice';
 
 export default function CitiesList() : JSX.Element {
 

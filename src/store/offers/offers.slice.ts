@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { sortings, SortingType } from '../utils'
+import { sortings, SortingType } from '../../utils'
 
 import { fetchOffersAction } from '../async-actions';
 
-import { OffersTypes } from '../types';
+import { OffersTypes } from '../../types';
 
 type OffersState = {
   city: string;

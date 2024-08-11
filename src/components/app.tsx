@@ -1,15 +1,15 @@
-import MainPage from '../../pages/main';
+import MainPage from './main.tsx';
 import {Route, BrowserRouter, Routes} from 'react-router-dom';
-import { AppRoute } from '../../const';
-import Login from '../../pages/login';
-import Favorites from '../../pages/main/favorite';
-import Offer from '../../pages/main/offer.tsx';
-import NotFound from '../../pages/not-found';
-import PrivateRoute from '../private-route.tsx';
-import { useAppSelector } from '../../hooks.tsx';
-import { LoadingScreen } from '../../loading-screen.tsx';
-import { NameSpace } from '../../const';
-import MainEmpty from '../../main-empty.tsx';
+import { AppRoute } from '../const.tsx';
+import Login from './login.tsx';
+import Favorites from './favorite.tsx';
+import Offer from './offer.tsx';
+import NotFound from './not-found.tsx';
+import PrivateRoute from './private-route.tsx';
+import { useAppSelector } from '../hooks.tsx';
+import { LoadingScreen } from './loading-screen.tsx';
+import { NameSpace } from '../const.tsx';
+import MainEmpty from './main-empty.tsx';
 
 function App() :JSX.Element {
 

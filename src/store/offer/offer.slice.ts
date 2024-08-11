@@ -6,9 +6,9 @@ import {
   setFavorite,
 } from '../async-actions';
 
-import { FavoritesType, OfferCardType, OfferStateType, OffersTypes } from '../types';
+import { FavoritesType, OfferCardType, OfferStateType, OffersTypes } from '../../types';
 
-import { offerWhenRejected } from '../const';
+import { offerWhenRejected } from '../../const';
 
 const initialState: OfferStateType = {
   offer: {

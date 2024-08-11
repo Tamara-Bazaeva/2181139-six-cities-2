@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux/es/hooks/useSelector';
-import { RootState } from '.';
-import { NameSpace } from './const';
+import { RootState } from '..';
+import { NameSpace } from '../const';
 
 
 export default function MainEmpty(): JSX.Element {

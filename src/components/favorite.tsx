@@ -1,9 +1,9 @@
 import HeaderLogin from './header-login';
-import FavCard from '../../components/fav-card';
-import { State } from '../../types';
+import FavCard from './fav-card';
+import { State } from '../types';
 import { useSelector } from 'react-redux';
-import { NameSpace } from '../../const';
-import FavoritesEmpty from '../../favorites-empty';
+import { NameSpace } from '../const';
+import FavoritesEmpty from './favorites-empty';
 
 function Favorites() : JSX.Element {
   const favoriteCards = useSelector((state: State) => state[NameSpace.Offer].favorites);

@@ -1,8 +1,8 @@
-import { OfferCardType, ReviewsTypes , OffersTypes} from '../../types';
+import { OfferCardType, ReviewsTypes , OffersTypes} from '../types';
 import HeaderLogin from './header-login';
-import Map from '../map';
-import ReviewCard from '../../components/review-card';
-import OffersListNearby from '../../components/offer-card-list-nearby';
+import Map from './map';
+import ReviewCard from './review-card';
+import OffersListNearby from './offer-card-list-nearby';
 import { v4 as uuidv4} from 'uuid';
 
 type OfferCopmType = {

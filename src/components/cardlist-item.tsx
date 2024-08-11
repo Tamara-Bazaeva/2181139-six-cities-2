@@ -5,7 +5,7 @@ import { AuthorizationStatus } from '../const';
 import { useSelector } from 'react-redux';
 import { State } from '../types';
 import { NameSpace } from '../const';
-import { setHoveredCardId } from '../store.ts/offers.slice'
+import { setHoveredCardId } from '../store/offers/offers.slice'
 
 type OneCardProps = {
   offer: OffersType;
@@ -34,9 +34,10 @@ function CardListItem({ offer, onMouseEnter, onSetFavorite }: OneCardProps): JSX
   return (
     <div onMouseEnter={handleMouseEnter}>
       <article className="cities__card place-card">
+        {offer.isPremium && (
         <div className="place-card__mark">
-          <span>{offer.isPremium ? 'Premium' : ''}</span>
-        </div>
+          <span>Premium</span>
+        </div>)}
         <div className="cities__image-wrapper place-card__image-wrapper">
           <Link to={`/offer/${offer.id}`}>
             <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place image" />
@@ -67,7 +68,9 @@ function CardListItem({ offer, onMouseEnter, onSetFavorite }: OneCardProps): JSX
             </div>
           </div>
           <h2 className="place-card__name">
-            <a href="#">{offer.title}</a>
+            <Link to={`/offer/${offer.id}`}>
+            {offer.title}
+            </Link>
           </h2>
           <p className="place-card__type">{offer.type}</p>
         </div>

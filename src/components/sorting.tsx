@@ -1,10 +1,10 @@
-import { useAppDispatch } from './hooks';
+import { useAppDispatch } from '../hooks';
 import { useState } from 'react';
-import { NameSpace } from './const';
+import { NameSpace } from '../const';
 import { useSelector } from 'react-redux';
-import { State } from './types';
-import { SortingType } from './utils';
-import { changeSortingType } from '../src/store.ts/offers.slice';
+import { State } from '../types';
+import { SortingType } from '../utils';
+import { changeSortingType } from '../store/offers/offers.slice';
 
 export default function Sorting(): JSX.Element {
 

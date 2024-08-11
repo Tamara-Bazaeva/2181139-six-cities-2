@@ -1,11 +1,11 @@
-import { AppDispatch, State, AuthDataType, OfferCardType, FavoritesType, FavArgType, CheckAuthRequest } from './types';
+import { AppDispatch, State, AuthDataType, OfferCardType, FavoritesType, FavArgType, CheckAuthRequest } from '../types';
 import { AxiosInstance, AxiosResponse } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { OffersTypes, ReviewsTypes, AuthorizationStatusType, ReviewFormType, ReviewType } from './types';
-import { AuthorizationStatus, offerWhenRejected } from './const';
-import { saveToken } from './token';
-import { auth } from '../src/store.ts/auth.slice';
-import { offersSlice } from './store.ts/offers.slice';
+import { OffersTypes, ReviewsTypes, AuthorizationStatusType, ReviewFormType, ReviewType } from '../types';
+import { AuthorizationStatus, offerWhenRejected } from '../const';
+import { saveToken } from '../token';
+import { auth } from './auth/auth.slice';
+import { offersSlice } from './offers/offers.slice';
 
 export const fetchOffersAction = createAsyncThunk<OffersTypes, undefined, {
   dispatch: AppDispatch;

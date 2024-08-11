@@ -1,4 +1,4 @@
-import HeaderLogin from './pages/main/header-login';
+import HeaderLogin from './header-login';
 
 function FavoritesEmpty(): JSX.Element {
   return (

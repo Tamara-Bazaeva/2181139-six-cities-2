@@ -1,12 +1,12 @@
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
-import { useAppDispatch } from '../../hooks';
-import NotFound from '../not-found';
+import { useAppDispatch } from '../hooks';
+import NotFound from './not-found';
 import OfferComp from './offer-comp';
-import { fetchOffer , fetchReviewsAction, fetchOffersNearby} from '../../async-actions';
-import { NameSpace } from '../../const';
+import { fetchOffer , fetchReviewsAction, fetchOffersNearby} from '../store/async-actions';
+import { NameSpace } from '../const';
 import { useSelector } from 'react-redux';
-import { State } from '../../types';
+import { State } from '../types';
 
 function Offer(): JSX.Element {
 
