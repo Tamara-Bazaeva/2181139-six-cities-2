@@ -1,23 +1,17 @@
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../hooks';
 import { AuthorizationStatus } from '../const';
-import { auth } from '../store/auth/auth.slice'
-import { useEffect } from 'react';
-import { NameSpace } from '../const';
+import { auth } from '../store/auth/auth.slice';
 import { useSelector } from 'react-redux';
-import { State } from '../types';
+import { selectAuthData } from '../store/auth/auth-selectors';
+import { selectFavorites } from '../store/offer/offer-selectors';
 
 export default function AuthHeader(): JSX.Element {
 
   const dispatch = useAppDispatch();
-  const authData = useSelector((state: State) => state[NameSpace.Auth].data);
-  const authStatus = useSelector((state: State) => state[NameSpace.Auth].status);
-  const favAmount = useSelector((state: State) => state[NameSpace.Offer].favorites);
+  const authData = useSelector(selectAuthData);
+  const favoriteOffers = useSelector(selectFavorites);
 
-  useEffect(() => {
-    if (authStatus === AuthorizationStatus.Auth){
-    }
-  },[authStatus, authData]);
   function handler() {
     dispatch(auth.actions.requireAuthorization(AuthorizationStatus.NoAuth));
   }
@@ -28,7 +22,7 @@ export default function AuthHeader(): JSX.Element {
           <div className="header__avatar-wrapper user__avatar-wrapper">
           </div>
           <Link className="header__user-name user__name" to="/favorites">{authData?.email}</Link>
-          <span className="header__favorite-count">{favAmount.length}</span>
+          <span className="header__favorite-count">{favoriteOffers.length}</span>
         </div>
       </li>
       <li className="header__nav-item">

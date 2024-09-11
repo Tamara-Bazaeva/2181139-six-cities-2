@@ -3,7 +3,7 @@ import {
   fetchFavorites,
   fetchOffer,
   fetchOffersNearby,
-  setFavorite,
+  setFavoriteAction,
 } from '../async-actions';
 
 import { FavoritesType, OfferCardType, OfferStateType, OffersTypes } from '../../types';
@@ -40,11 +40,12 @@ const initialState: OfferStateType = {
       avatarUrl: '',
       isPro: false,
     },
+    previewImage: '',
     images: [''],
     maxAdults: 0,
   },
   offersNearby: [],
-  favorites: []
+  favorites: [],
 };
 
 export const offerSlice = createSlice({
@@ -68,8 +69,15 @@ export const offerSlice = createSlice({
       .addCase(fetchFavorites.fulfilled, (state, action: PayloadAction<FavoritesType>) => {
         state.favorites = action.payload;
       })
-      .addCase(setFavorite.fulfilled, (state, action: PayloadAction<OfferCardType>) => {
-        state.favorites = [...state.favorites,action.payload];
+      .addCase(setFavoriteAction.fulfilled, (state, action: PayloadAction<OfferCardType>) => {
+        state.offer = action.payload;
+        state.offersNearby = state.offersNearby.map((offer) => offer.id === action.payload.id ? action.payload : offer);
+
+        if (action.payload.isFavorite) {
+          state.favorites.push(action.payload);
+        } else {
+          state.favorites = state.favorites.filter((offer) => offer.id !== action.payload.id);
+        }
       });
   },
 });

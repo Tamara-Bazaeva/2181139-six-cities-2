@@ -1,10 +1,8 @@
 import { useSelector } from 'react-redux/es/hooks/useSelector';
-import { RootState } from '..';
-import { NameSpace } from '../const';
-
+import { selectCity } from '../store/offers/offers-selectors';
 
 export default function MainEmpty(): JSX.Element {
-  const cityFromState = useSelector((state: RootState) => state[NameSpace.Offers].city);
+  const cityFromState = useSelector(selectCity);
   return (
     <main className="page__main page__main--index page__main--index-empty">
       <section className="locations container">

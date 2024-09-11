@@ -4,9 +4,9 @@ import { Icon, Marker, layerGroup } from 'leaflet';
 import useMap from '../useMap.tsx';
 import 'leaflet/dist/leaflet.css';
 import { OffersType} from '../types.tsx';
-import { NameSpace } from '../const.tsx';
 import { useSelector } from 'react-redux';
-import { State } from '../types.tsx';
+import { selectOffers } from '../store/offers/offers-selectors.ts';
+import { selectHoveredCard } from '../store/offers/offers-selectors.ts';
 
 const defaultCustomIcon = new Icon({
   iconUrl: URL_MARKER_DEFAULT,
@@ -21,8 +21,8 @@ const currentCustomIcon = new Icon({
 });
 
 export default function Map(): JSX.Element {
-  const propPoints = useSelector((state: State) => state[NameSpace.Offers].offers);
-  const hoveredCard = useSelector((state: State) => state[NameSpace.Offers].hoveredCard);
+  const propPoints = useSelector(selectOffers);
+  const hoveredCard = useSelector(selectHoveredCard);
   const mapRef = useRef(null);
   const map = useMap(mapRef, propPoints[0]);
 

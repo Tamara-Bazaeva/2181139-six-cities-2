@@ -1,23 +1,22 @@
-import MainPage from './main.tsx';
+import MainPage from '../pages/main-page.tsx';
 import {Route, BrowserRouter, Routes} from 'react-router-dom';
 import { AppRoute } from '../const.tsx';
-import Login from './login.tsx';
-import Favorites from './favorite.tsx';
-import Offer from './offer.tsx';
-import NotFound from './not-found.tsx';
+import Login from '../pages/login-page.tsx';
+import FavoritesPage from '../pages/favorites-page.tsx';
+import OfferPage from '../pages/offer-page.tsx';
 import PrivateRoute from './private-route.tsx';
 import { useAppSelector } from '../hooks.tsx';
-import { LoadingScreen } from './loading-screen.tsx';
-import { NameSpace } from '../const.tsx';
-import MainEmpty from './main-empty.tsx';
+import MainEmpty from '../pages/main-empty-page.tsx';
+import NotFoundPage from '../pages/not-found-page.tsx';
+import { selectIsOffersDataLoading } from '../store/offers/offers-selectors.ts';
 
 function App() :JSX.Element {
 
-  const isQuestionsDataLoading = useAppSelector((state) => state[NameSpace.Offers].isOffersDataLoading);
+  const isQuestionsDataLoading = useAppSelector(selectIsOffersDataLoading);
 
   if(isQuestionsDataLoading){
     return (
-      < LoadingScreen/>
+      <p>...Loading...</p>
     );
   }
   return (
@@ -35,17 +34,17 @@ function App() :JSX.Element {
           path={AppRoute.Favorites}
           element={
             <PrivateRoute>
-              <Favorites />
+              <FavoritesPage />
             </PrivateRoute>
           }
         />
         <Route
           path={AppRoute.Offer}
-          element={<Offer/>}
+          element={<OfferPage/>}
         />
         <Route
           path="*"
-          element={<NotFound/>}
+          element={<NotFoundPage/>}
         />
         <Route
           path={AppRoute.Empty}

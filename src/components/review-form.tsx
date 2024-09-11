@@ -1,16 +1,15 @@
 import { ChangeEvent, useState, FormEvent, Fragment } from 'react';
 import { postComment } from '../store/async-actions';
 import { useAppDispatch } from '../hooks';
-import { NameSpace } from '../const';
 import { useSelector } from 'react-redux';
-import { State } from '../types';
+import { selectOffer } from '../store/offer/offer-selectors';
 
 const STARS_COUNT = 5;
 const ratingStars = Array.from({ length: STARS_COUNT }).map((_, index) => STARS_COUNT - index);
 
-export default function FormForReview() {
+export default function ReviewForm() {
   const dispatch = useAppDispatch();
-  const offer = useSelector((state: State) => state[NameSpace.Offer].offer);
+  const offer = useSelector(selectOffer);
   const [formData, setFormData] = useState(
     {
       rating: '',

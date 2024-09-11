@@ -67,6 +67,7 @@ export type OfferCardType =
       avatarUrl: string;
       isPro: boolean;
     };
+    previewImage: '';
     images: string[];
     maxAdults: number;
   }
@@ -120,7 +121,7 @@ export type OfferStateType = {
   favorites: FavoritesType;
 }
 
-export type FavArgType = {
+export type SetFavoriteType = {
   id: string;
   status: number;
 }

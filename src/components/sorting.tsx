@@ -1,15 +1,14 @@
 import { useAppDispatch } from '../hooks';
 import { useState } from 'react';
-import { NameSpace } from '../const';
 import { useSelector } from 'react-redux';
-import { State } from '../types';
 import { SortingType } from '../utils';
 import { changeSortingType } from '../store/offers/offers.slice';
+import { selectSortingType } from '../store/offers/offers-selectors';
 
 export default function Sorting(): JSX.Element {
 
   const dispatch = useAppDispatch();
-  const currentSortingType: string = useSelector((state: State) => state[NameSpace.Offers].sortingType);
+  const currentSortingType: string = useSelector(selectSortingType);
   const [isOpen, setIsOpen] = useState(false);
 
   const handleClick = () => {
@@ -34,63 +33,63 @@ export default function Sorting(): JSX.Element {
 
   return (
     <form
-    className="places__sorting"
-    action="#"
-    method="get"
-    onClick={handleClick}
-  >
-    <span className="places__sorting-caption">Sort by</span>
-    <span className="places__sorting-type" tabIndex={0}>
-      {currentSortingType}
-      <svg className="places__sorting-arrow" width="7" height="4">
-        <use xlinkHref="#icon-arrow-select"></use>
-      </svg>
-    </span>
-    <div>
-      <ul
-        className={`places__options places__options--custom ${
-          isOpen ? 'places__options--opened' : ''
-        }`}
-      >
-        <li
-          className={`places__option ${
-            currentSortingType === SortingType.Popular ? 'places__option--active' : ''
+      className="places__sorting"
+      action="#"
+      method="get"
+      onClick={handleClick}
+    >
+      <span className="places__sorting-caption">Sort by</span>
+      <span className="places__sorting-type" tabIndex={0}>
+        {currentSortingType}
+        <svg className="places__sorting-arrow" width="7" height="4">
+          <use xlinkHref="#icon-arrow-select"></use>
+        </svg>
+      </span>
+      <div>
+        <ul
+          className={`places__options places__options--custom ${
+            isOpen ? 'places__options--opened' : ''
           }`}
-          tabIndex={0}
-          onClick={setPopularSortingType}
         >
+          <li
+            className={`places__option ${
+              currentSortingType === SortingType.Popular ? 'places__option--active' : ''
+            }`}
+            tabIndex={0}
+            onClick={setPopularSortingType}
+          >
           Popular
-        </li>
-        <li
-          className={`places__option ${
-            currentSortingType === SortingType.PriceLowToHigh ? 'places__option--active' : ''
-          }`}
-          tabIndex={0}
-          onClick={setPriceLowToHighSortingType}
-        >
-          {' '}
+          </li>
+          <li
+            className={`places__option ${
+              currentSortingType === SortingType.PriceLowToHigh ? 'places__option--active' : ''
+            }`}
+            tabIndex={0}
+            onClick={setPriceLowToHighSortingType}
+          >
+            {' '}
           Price: low to high
-        </li>
-        <li
-          className={`places__option ${
-            currentSortingType === SortingType.PriceHighToLow ? 'places__option--active' : ''
-          }`}
-          tabIndex={0}
-          onClick={setPriceHighToLowSortingType}
-        >
-          {' '}
+          </li>
+          <li
+            className={`places__option ${
+              currentSortingType === SortingType.PriceHighToLow ? 'places__option--active' : ''
+            }`}
+            tabIndex={0}
+            onClick={setPriceHighToLowSortingType}
+          >
+            {' '}
           Price: high to low
-        </li>
-        <li
-          className={`places__option ${currentSortingType === SortingType.TopRatedFirst ? 'places__option--active' : ''}`}
-          tabIndex={0}
-          onClick={setTopRatedFirstSortingType}
-        >
-          {' '}
+          </li>
+          <li
+            className={`places__option ${currentSortingType === SortingType.TopRatedFirst ? 'places__option--active' : ''}`}
+            tabIndex={0}
+            onClick={setTopRatedFirstSortingType}
+          >
+            {' '}
           Top rated first
-        </li>
-      </ul>
-    </div>
-  </form>
-);
+          </li>
+        </ul>
+      </div>
+    </form>
+  );
 }

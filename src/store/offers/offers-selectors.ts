@@ -7,7 +7,7 @@ export const selectOffers = (state: State) => state[NameSpace.Offers].offers;
 export const selectCity = (state: State) => state[NameSpace.Offers].city;
 
 export const selectCityOffers = createSelector(selectOffers, selectCity, (offers, city: string) => offers.filter((offer: OffersType) =>
-offer.city.name === city));
+  offer.city.name === city));
 
 export const selectSortingType = (state: State) => state[NameSpace.Offers].sortingType;
 

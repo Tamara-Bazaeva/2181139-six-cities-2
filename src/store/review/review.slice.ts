@@ -32,6 +32,6 @@ export const reviewsSlice = createSlice({
       })
       .addCase(fetchReviewsAction.rejected, (state) => {
         state.reviews = [];
-      })
+      });
   },
 });

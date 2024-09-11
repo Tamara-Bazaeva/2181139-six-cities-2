@@ -4,17 +4,16 @@ import { useState, ChangeEvent, FormEvent } from 'react';
 import { AuthorizationStatus } from '../const';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-// import { auth } from '../slice';
-import { NameSpace } from '../const';
 import { useSelector } from 'react-redux';
-import { State } from '../types';
 import { loginAction } from '../store/async-actions';
+import { selectAuthData } from '../store/auth/auth-selectors';
+import { selectAuthStatus } from '../store/auth/auth-selectors';
 
 function Login(): JSX.Element {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const authStatus = useSelector((state: State) => state[NameSpace.Auth].status);
-  const authData = useSelector((state: State) => state[NameSpace.Auth].data);
+  const authStatus = useSelector(selectAuthStatus);
+  const authData = useSelector(selectAuthData);
 
   const [formData, setFormData] = useState(
     {

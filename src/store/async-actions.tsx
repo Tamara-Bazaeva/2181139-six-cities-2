@@ -1,4 +1,4 @@
-import { AppDispatch, State, AuthDataType, OfferCardType, FavoritesType, FavArgType, CheckAuthRequest } from '../types';
+import { AppDispatch, State, AuthDataType, OfferCardType, FavoritesType, SetFavoriteType, CheckAuthRequest } from '../types';
 import { AxiosInstance, AxiosResponse } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { OffersTypes, ReviewsTypes, AuthorizationStatusType, ReviewFormType, ReviewType } from '../types';
@@ -155,17 +155,15 @@ export const fetchFavorites = createAsyncThunk<FavoritesType, undefined, {
   }
 );
 
-export const setFavorite = createAsyncThunk<OfferCardType, FavArgType, {
+export const setFavoriteAction = createAsyncThunk<OfferCardType, SetFavoriteType, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'setFavorites',
 
-  async ({id, status}, {dispatch, extra: api}) => {
-    const resp = await api.post<FavArgType, AxiosResponse<OfferCardType>>(`/six-cities/favorite/${id}/${status}`);
-    dispatch(fetchFavorites());
-    dispatch(fetchOffersAction());
+  async ({id, status}, {extra: api}) => {
+    const resp = await api.post<SetFavoriteType, AxiosResponse<OfferCardType>>(`/six-cities/favorite/${id}/${status}`);
     return resp.data ;
   }
 );

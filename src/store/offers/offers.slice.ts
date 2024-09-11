@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { sortings, SortingType } from '../../utils'
+import { sortings, SortingType } from '../../utils';
 
-import { fetchOffersAction } from '../async-actions';
+import { fetchOffersAction, setFavoriteAction } from '../async-actions';
 
-import { OffersTypes } from '../../types';
+import { OffersTypes, OfferCardType } from '../../types';
 
 type OffersState = {
   city: string;
@@ -51,6 +51,10 @@ export const offersSlice = createSlice({
       .addCase(fetchOffersAction.rejected, (state) => {
         state.rawOffers = [];
         state.offers = [];
+      })
+      .addCase(setFavoriteAction.fulfilled, (state, action: PayloadAction<OfferCardType>) => {
+        state.rawOffers = state.rawOffers.map((offer) => offer.id === action.payload.id ? action.payload : offer);
+        state.offers = state.offers.map((offer) => offer.id === action.payload.id ? action.payload : offer);
       });
   }
 });

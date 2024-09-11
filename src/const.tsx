@@ -42,6 +42,7 @@ export const offerWhenRejected: OfferCardType = {
     avatarUrl: '',
     isPro: false,
   },
+  previewImage: '',
   images: [''],
   maxAdults: 0,
 };
