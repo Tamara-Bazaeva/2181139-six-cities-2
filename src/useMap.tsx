@@ -5,19 +5,15 @@ import { OffersType } from './types';
 export default function useMap(mapRef: MutableRefObject<HTMLElement | null>, offer: OffersType): Map | null {
   const [map, setMap] = useState<Map | null>(null);
   const isRenderedRef = useRef<boolean>(false);
-  const offerProp = offer;
 
   useEffect(() => {
-    if (mapRef.current !== null && !isRenderedRef.current && offerProp) {
+    if (mapRef.current !== null && !isRenderedRef.current && offer) {
       const instance = new Map(mapRef.current, {
-
         center: {
-          lat: offerProp.city.location.latitude,
-          lng: offerProp.city.location.longitude
+          lat: offer.city.location.latitude,
+          lng: offer.city.location.longitude
         },
-        zoom: 8,
-
-
+        zoom: 12,
       });
 
       const layer = new TileLayer(
@@ -31,9 +27,17 @@ export default function useMap(mapRef: MutableRefObject<HTMLElement | null>, off
       instance.addLayer(layer);
       setMap(instance);
       isRenderedRef.current = true;
+    } else {
+      if (map) {
+        map.setView({
+          lat: offer.city.location.latitude,
+          lng: offer.city.location.longitude,
+        });
+      }
     }
-  }, [mapRef, offerProp]);
+  }, [mapRef, offer, map]);
 
   return map;
 }
+
 

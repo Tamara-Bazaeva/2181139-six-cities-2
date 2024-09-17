@@ -26,7 +26,7 @@ function Login(): JSX.Element {
     if (authStatus === AuthorizationStatus.Auth){
       navigate('/');
     }
-  },[authStatus, authData]);
+  },[authStatus, authData, navigate]);
 
   const handleFieldChange = (evt: ChangeEvent<HTMLInputElement>) => {
     evt.preventDefault();

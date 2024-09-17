@@ -2,13 +2,13 @@ import HeaderLogin from '../components/header-login';
 import { useSelector } from 'react-redux';
 import { useCallback } from 'react';
 import FavoriteCardItem from '../components/favorite-card-item';
-import { selectFavorites } from '../store/offer/offer-selectors';
+import { selectFavoritesGroupedByCity } from '../store/offer/offer-selectors';
 import { setFavoriteAction } from '../store/async-actions';
 import { useAppDispatch } from '../hooks';
-import { OffersType, SetFavoriteType } from '../types';
+import { SetFavoriteType } from '../types';
 
 function FavoritesPage(): JSX.Element {
-  const offers = useSelector(selectFavorites);
+  const offers = useSelector(selectFavoritesGroupedByCity);
   const dispatch = useAppDispatch();
 
   const handleFavoriteClick = useCallback(
@@ -18,14 +18,7 @@ function FavoritesPage(): JSX.Element {
     [dispatch]
   );
 
-  const amsterdam = offers.some((offer: OffersType) => offer.city.name === 'Amsterdam');
-  const paris = offers.some((offer: OffersType) => offer.city.name === 'Paris');
-  const cologne = offers.some((offer: OffersType) => offer.city.name === 'Cologne');
-  const brussels = offers.some((offer: OffersType) => offer.city.name === 'Brussels');
-  const hamburg = offers.some((offer: OffersType) => offer.city.name === 'Hamburg');
-  const dusseldorf = offers.some((offer: OffersType) => offer.city.name === 'Dusseldorf');
-
-  if (offers.length === 0) {
+  if (Object.keys(offers).length === 0) {
     return (
       <div>
         <div className="page page--favorites-empty">
@@ -54,6 +47,7 @@ function FavoritesPage(): JSX.Element {
       </div>
     );
   }
+
   return (
     <div>
       <HeaderLogin />
@@ -61,102 +55,22 @@ function FavoritesPage(): JSX.Element {
         <section className="favorites">
           <h1 className="favorites__title">Saved listing</h1>
           <ul className="favorites__list">
-            {amsterdam && (<li className="favorites__locations-items">
-              <div className="favorites__locations locations locations--current">
-                <div className="locations__item">
-                  <a className="locations__item-link" href="#">
-                    <span>Amsterdam</span>
-                  </a>
+            {Object.keys(offers).map((city) => (
+              <li className="favorites__locations-items" key={city}>
+                <div className="favorites__locations locations locations--current">
+                  <div className="locations__item">
+                    <a className="locations__item-link" href="#">
+                      <span>{city}</span>
+                    </a>
+                  </div>
                 </div>
-              </div>
-              <div className="favorites__places">
-                {offers
-                  .filter((offer: OffersType) => offer.city.name === 'Amsterdam')
-                  .map((offer: OffersType) => (
-                    <FavoriteCardItem key={offer.id} offer={offer} onFavoriteClick={handleFavoriteClick} />
+                <div className="favorites__places">
+                  {offers[city].map((offer) => (
+                    <FavoriteCardItem key={offer.id} offer={offer} onFavoriteClick={handleFavoriteClick}/>
                   ))}
-              </div>
-            </li>)}
-            {paris && (<li className="favorites__locations-items">
-              <div className="favorites__locations locations locations--current">
-                <div className="locations__item">
-                  <a className="locations__item-link" href="#">
-                    <span>Paris</span>
-                  </a>
                 </div>
-              </div>
-              <div className="favorites__places">
-                {offers
-                  .filter((offer: OffersType) => offer.city.name === 'Paris')
-                  .map((offer: OffersType) => (
-                    <FavoriteCardItem key={offer.id} offer={offer} onFavoriteClick={handleFavoriteClick} />
-                  ))}
-              </div>
-            </li>)}
-            {brussels && (<li className="favorites__locations-items">
-              <div className="favorites__locations locations locations--current">
-                <div className="locations__item">
-                  <a className="locations__item-link" href="#">
-                    <span>Brussels</span>
-                  </a>
-                </div>
-              </div>
-              <div className="favorites__places">
-                {offers
-                  .filter((offer: OffersType) => offer.city.name === 'Brussels')
-                  .map((offer: OffersType) => (
-                    <FavoriteCardItem key={offer.id} offer={offer} onFavoriteClick={handleFavoriteClick} />
-                  ))}
-              </div>
-            </li>)}
-            {cologne && (<li className="favorites__locations-items">
-              <div className="favorites__locations locations locations--current">
-                <div className="locations__item">
-                  <a className="locations__item-link" href="#">
-                    <span>Cologne</span>
-                  </a>
-                </div>
-              </div>
-              <div className="favorites__places">
-                {offers
-                  .filter((offer: OffersType) => offer.city.name === 'Cologne')
-                  .map((offer: OffersType) => (
-                    <FavoriteCardItem key={offer.id} offer={offer} onFavoriteClick={handleFavoriteClick} />
-                  ))}
-              </div>
-            </li>)}
-            {hamburg && (<li className="favorites__locations-items">
-              <div className="favorites__locations locations locations--current">
-                <div className="locations__item">
-                  <a className="locations__item-link" href="#">
-                    <span>Hamburg</span>
-                  </a>
-                </div>
-              </div>
-              <div className="favorites__places">
-                {offers
-                  .filter((offer: OffersType) => offer.city.name === 'Hamburg')
-                  .map((offer: OffersType) => (
-                    <FavoriteCardItem key={offer.id} offer={offer} onFavoriteClick={handleFavoriteClick} />
-                  ))}
-              </div>
-            </li>)}
-            {dusseldorf && (<li className="favorites__locations-items">
-              <div className="favorites__locations locations locations--current">
-                <div className="locations__item">
-                  <a className="locations__item-link" href="#">
-                    <span>Dusseldorf</span>
-                  </a>
-                </div>
-              </div>
-              <div className="favorites__places">
-                {offers
-                  .filter((offer: OffersType) => offer.city.name === 'Dusseldorf')
-                  .map((offer: OffersType) => (
-                    <FavoriteCardItem key={offer.id} offer={offer} onFavoriteClick={handleFavoriteClick} />
-                  ))}
-              </div>
-            </li>)}
+              </li>
+            ))}
           </ul>
         </section>
       </div>

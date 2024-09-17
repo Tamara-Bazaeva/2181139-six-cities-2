@@ -5,7 +5,7 @@ import useMap from '../useMap.tsx';
 import 'leaflet/dist/leaflet.css';
 import { OffersType} from '../types.tsx';
 import { useSelector } from 'react-redux';
-import { selectOffers } from '../store/offers/offers-selectors.ts';
+import { selectCityOffers } from '../store/offers/offers-selectors.ts';
 import { selectHoveredCard } from '../store/offers/offers-selectors.ts';
 
 const defaultCustomIcon = new Icon({
@@ -21,7 +21,7 @@ const currentCustomIcon = new Icon({
 });
 
 export default function Map(): JSX.Element {
-  const propPoints = useSelector(selectOffers);
+  const propPoints = useSelector(selectCityOffers);
   const hoveredCard = useSelector(selectHoveredCard);
   const mapRef = useRef(null);
   const map = useMap(mapRef, propPoints[0]);
