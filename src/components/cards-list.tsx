@@ -7,7 +7,7 @@ import { setFavoriteAction } from '../store/async-actions';
 import { useAppDispatch } from '../hooks';
 import { selectCityOffers } from '../store/offers/offers-selectors';
 
-function CardsList(): JSX.Element {
+export const CardsListComponent = () => {
   const dispatch = useAppDispatch();
   const offersByCity = useSelector(selectCityOffers);
   const [, setActiveCard] = useState<string>('');
@@ -28,7 +28,6 @@ function CardsList(): JSX.Element {
       {offersByCity.map((offer: OffersType) =>
         (<CardListItem key={offer.id} offer={offer} onMouseEnter={handleMouseEnter} onSetFavorite={handleFavoriteClick}/>))}
     </div>);
-}
+};
 
-export default React.memo(CardsList);
-
+export const CardsList = React.memo(CardsListComponent);

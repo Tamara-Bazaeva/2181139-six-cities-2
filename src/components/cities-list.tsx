@@ -25,5 +25,3 @@ export default function CitiesList() : JSX.Element {
       ))}
     </ul>);
 }
-
-

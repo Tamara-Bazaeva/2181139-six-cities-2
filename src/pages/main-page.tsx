@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux/es/hooks/useSelector';
 import MainEmpty from './main-empty-page.tsx';
 import Sorting from '../components/sorting.tsx';
 import Map from '../components/map.tsx';
-import CardsList from '../components/cards-list.tsx';
+import {CardsList} from '../components/cards-list.tsx';
 
 import { selectCityOffers } from '../store/offers/offers-selectors.ts';
 import { selectCity } from '../store/offers/offers-selectors.ts';

@@ -1,7 +1,7 @@
 import axios, { AxiosInstance, AxiosResponse, AxiosError } from 'axios';
 import { getToken } from '../token';
 import { toast } from 'react-toastify';
-import { StatusCodes } from 'http-status-codes';
+import { StatusCodeMapping } from '../types';
 
 const BACKEND_URL = 'https://13.design.htmlacademy.pro';
 const REQUEST_TIMEOUT = 5000;
@@ -10,11 +10,7 @@ type DetailMessageType = {
   type: string;
   message: string;
 }
-const StatusCodeMapping: Record<number, boolean> = {
-  [StatusCodes.BAD_REQUEST]: true,
-  [StatusCodes.UNAUTHORIZED]: true,
-  [StatusCodes.NOT_FOUND]: true
-};
+
 const shouldDisplayError = (response: AxiosResponse) => !!StatusCodeMapping[response.status];
 
 export const createApi = (): AxiosInstance => {
