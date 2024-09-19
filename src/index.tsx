@@ -5,10 +5,7 @@ import { Provider } from 'react-redux';
 import { fetchOffersAction, checkAuthAction, fetchFavorites } from './store/async-actions';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-// import { rootReducer } from './store/root-reducer';
 import { store } from './store';
-
-// export type RootState = ReturnType<typeof rootReducer>;
 
 store.dispatch(fetchFavorites());
 store.dispatch(fetchOffersAction());

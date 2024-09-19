@@ -11,8 +11,6 @@ export const selectCityOffers = createSelector(selectOffers, selectCity, (offers
 
 export const selectSortingType = (state: State) => state[NameSpace.Offers].sortingType;
 
-export const selectRawOffers = (state: State) => state[NameSpace.Offers].rawOffers;
-
 export const selectHoveredCard = (state: State) => state[NameSpace.Offers].hoveredCard;
 
 export const selectIsOffersDataLoading = (state: State) => state[NameSpace.Offers].isOffersDataLoading;

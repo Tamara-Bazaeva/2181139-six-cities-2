@@ -7,10 +7,6 @@ export type State = ReturnType<typeof rootReducer>;
 
 export type AppDispatch = typeof store.dispatch;
 
-export type UserProcess = {
-  authorizationStatus: AuthorizationStatus;
-};
-
 export type OffersType = {
   id: string;
   title: string;
