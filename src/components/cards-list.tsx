@@ -1,29 +1,33 @@
-import OneCard from './one-card';
-import { OffersType } from '../types';
+import CardListItem from './card-list-item';
+import { SetFavoriteType, OffersType } from '../types';
 import { useState, useCallback } from 'react';
 import React from 'react';
-import { NameSpace } from '../const';
 import { useSelector } from 'react-redux/es/hooks/useSelector';
-import { State } from '../types';
+import { setFavoriteAction } from '../store/async-actions';
+import { useAppDispatch } from '../hooks';
+import { selectCityOffers } from '../store/offers/offers-selectors';
 
-function CardsList(): JSX.Element {
-
+export const CardsListComponent = () => {
+  const dispatch = useAppDispatch();
+  const offersByCity = useSelector(selectCityOffers);
   const [, setActiveCard] = useState<string>('');
-  function handlerCallback(id: string) {
+
+  const handleMouseEnter = useCallback((id: string) => {
     setActiveCard(id);
-  }
+  }, []);
 
-  const handler = useCallback((id: string) => handlerCallback(id), [setActiveCard]);
+  const handleFavoriteClick = useCallback(
+    ({id, status} : SetFavoriteType) => {
+      dispatch(setFavoriteAction({id, status}));
+    },
+    [dispatch]
+  );
 
-  const allOffers = useSelector((state: State) => state[NameSpace.Sorting].offersList);
-
-  const city = useSelector((state: State) => state[NameSpace.Sorting].city);
   return (
     <div className="cities__places-list places__list tabs__content">
+      {offersByCity.map((offer: OffersType) =>
+        (<CardListItem key={offer.id} offer={offer} onMouseEnter={handleMouseEnter} onSetFavorite={handleFavoriteClick}/>))}
+    </div>);
+};
 
-      {allOffers.filter((of: OffersType) => of.city.name === city).map((offer: OffersType) => <OneCard key={offer.id} offer={offer} onMouseEnter={handler}/>)}
-    </div>
-  );
-}
-
-export default React.memo(CardsList);
+export const CardsList = React.memo(CardsListComponent);

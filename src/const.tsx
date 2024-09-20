@@ -4,7 +4,8 @@ export enum AppRoute {
   Login = '/login',
   Main = '/',
   Favorites = '/favorites',
-  Offer = '/offer/:id'
+  Offer = '/offer/:id',
+  Empty = '/empty',
 }
 
 export enum AuthorizationStatus {
@@ -41,12 +42,14 @@ export const offerWhenRejected: OfferCardType = {
     avatarUrl: '',
     isPro: false,
   },
+  previewImage: '',
   images: [''],
   maxAdults: 0,
 };
 
 export enum NameSpace {
   Auth = 'AUTH',
-  Sorting = 'SORTING',
+  Offers = 'OFFERS',
   Offer = 'OFFER',
+  Reviews = 'REVIEWS'
 }
