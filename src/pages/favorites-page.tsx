@@ -6,6 +6,7 @@ import { selectFavoritesGroupedByCity } from '../store/offer/offer-selectors';
 import { setFavoriteAction } from '../store/async-actions';
 import { useAppDispatch } from '../hooks';
 import { SetFavoriteType } from '../types';
+import { Link } from 'react-router-dom';
 
 function FavoritesPage(): JSX.Element {
   const offers = useSelector(selectFavoritesGroupedByCity);
@@ -59,14 +60,14 @@ function FavoritesPage(): JSX.Element {
               <li className="favorites__locations-items" key={city}>
                 <div className="favorites__locations locations locations--current">
                   <div className="locations__item">
-                    <a className="locations__item-link" href="#">
+                    <Link to={'/#'} className="locations__item-link">
                       <span>{city}</span>
-                    </a>
+                    </Link>
                   </div>
                 </div>
                 <div className="favorites__places">
                   {offers[city].map((offer) => (
-                    <FavoriteCardItem key={offer.id} offer={offer} onFavoriteClick={handleFavoriteClick}/>
+                    <FavoriteCardItem key={offer.id} offer={offer} onFavoriteClick={handleFavoriteClick} />
                   ))}
                 </div>
               </li>

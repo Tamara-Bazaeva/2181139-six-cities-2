@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useAppDispatch } from '../hooks';
 import NotFoundPage from './not-found-page';
@@ -15,8 +15,8 @@ import { selectNearbyOffers } from '../store/offer/offer-selectors';
 import { selectAuthStatus } from '../store/auth/auth-selectors';
 
 function OfferPage(): JSX.Element {
-
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const { id } = useParams();
 
   useEffect(() => {
@@ -34,7 +34,7 @@ function OfferPage(): JSX.Element {
 
   const handleFavoriteClick = () => {
     if (status === AuthorizationStatus.NoAuth) {
-      window.location.href = '/login';
+      navigate('/login');
       return;
     }
     dispatch(setFavoriteAction({ id: offer.id, status: Number(!offer.isFavorite)}));

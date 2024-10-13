@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { useAppDispatch} from '../hooks';
 import { useState, ChangeEvent, FormEvent } from 'react';
 import { AuthorizationStatus } from '../const';
@@ -8,6 +9,10 @@ import { useSelector } from 'react-redux';
 import { loginAction } from '../store/async-actions';
 import { selectAuthData } from '../store/auth/auth-selectors';
 import { selectAuthStatus } from '../store/auth/auth-selectors';
+
+const PASSWORD_REGEX = /(?=^.{2,}$)((?=.*\d))(?=.*[A-Za-z]).*$/;
+
+const validatePassword = (password: string) => PASSWORD_REGEX.test(password);
 
 function Login(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -35,11 +40,19 @@ function Login(): JSX.Element {
     setFormData({ ...formData, [name]: value });
   };
 
-  function submit(evt: FormEvent<HTMLFormElement>) {
+  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    dispatch(loginAction({login: formData.login, password: formData.password}));
+    if (!validatePassword(formData.password)) {
+      toast.warn('Пароль должен состоять минимум из одной латинской буквы и цифры');
+      return;
+    }
+
+    dispatch(loginAction({
+      login: formData.login,
+      password: formData.password,
+    }));
     navigate('/');
-  }
+  };
 
   return (
     <div className="page page--gray page--login">
@@ -58,14 +71,14 @@ function Login(): JSX.Element {
         <div className="page__login-container container">
           <section className="login">
             <h1 className="login__title">Sign in</h1>
-            <form className="login__form form" onSubmit={submit}>
+            <form className="login__form form" onSubmit={handleSubmit}>
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden" htmlFor="email">E-mail</label>
-                <input className="login__input form__input" type="email" name="login" placeholder="Email" value={formData.login} onChange={handleFieldChange} />
+                <input className="login__input form__input" type="email" name="login" placeholder="Email" value={formData.login} onChange={handleFieldChange} required />
               </div>
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden" htmlFor="password">Password</label>
-                <input className="login__input form__input" type="password" name="password" placeholder="Password" value={formData.password} onChange={handleFieldChange} />
+                <input className="login__input form__input" type="password" name="password" placeholder="Password" value={formData.password} onChange={handleFieldChange} required />
               </div>
               <button className="login__submit form__submit button" type="submit" >Sign in</button>
             </form>

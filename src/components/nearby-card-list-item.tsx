@@ -1,3 +1,4 @@
+import { Link, useNavigate } from 'react-router-dom';
 import { OffersType, SetFavoriteType } from '../types';
 import { AuthorizationStatus } from '../const';
 
@@ -7,9 +8,11 @@ type OfferNearbyProps = {
 }
 
 export default function NearbyCardListItem({ offer, onFavoriteClick }: OfferNearbyProps): JSX.Element {
+  const navigate = useNavigate();
+
   const handleFavoriteClick = () => {
     if (status === AuthorizationStatus.NoAuth) {
-      window.location.href = '/login';
+      navigate('/login');
       return;
     }
     onFavoriteClick({
@@ -17,12 +20,13 @@ export default function NearbyCardListItem({ offer, onFavoriteClick }: OfferNear
       status: Number(!offer.isFavorite),
     });
   };
+
   return (
     <article className="near-places__card place-card">
       <div className="near-places__image-wrapper place-card__image-wrapper">
-        <a href="#">
+        <Link to={`/offer/${offer.id}`}>
           <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place image" />
-        </a>
+        </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
@@ -43,16 +47,17 @@ export default function NearbyCardListItem({ offer, onFavoriteClick }: OfferNear
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: '80%' }}></span>
-            <span className="visually-hidden"> Rating</span>
+            <span style={{width: `${offer.rating / 0.05}%`}}></span>
+            <span className="visually-hidden">Rating{offer.rating}</span>
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">Wood and stone place</a>
+          <Link to={`/offer/${offer.id}`}>
+            {offer.title}
+          </Link>
         </h2>
         <p className="place-card__type">{offer.type}</p>
       </div>
     </article>
   );
-
 }

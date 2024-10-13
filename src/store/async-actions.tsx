@@ -169,7 +169,7 @@ export const setFavoriteAction = createAsyncThunk<OfferCardType, SetFavoriteType
   'setFavorites',
 
   async ({id, status}, {extra: api}) => {
-    const resp = await api.post<SetFavoriteType, AxiosResponse<OfferCardType>>(`/six-cities/favorite/${id}/${status}`);
-    return resp.data ;
+    const response = await api.post<SetFavoriteType, AxiosResponse<OfferCardType>>(`/six-cities/favorite/${id}/${status}`);
+    return response.data ;
   }
 );

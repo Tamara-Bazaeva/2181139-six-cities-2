@@ -1,4 +1,3 @@
-import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from '../url.tsx';
 import { useRef, useEffect } from 'react';
 import { Icon, Marker, layerGroup } from 'leaflet';
 import useMap from '../useMap.tsx';
@@ -8,16 +7,21 @@ import { useSelector } from 'react-redux';
 import { selectCityOffers } from '../store/offers/offers-selectors.ts';
 import { selectHoveredCard } from '../store/offers/offers-selectors.ts';
 
-const defaultCustomIcon = new Icon({
-  iconUrl: URL_MARKER_DEFAULT,
-  iconSize: [40, 40],
-  iconAnchor: [20, 40]
+const IconPath = {
+  DEFAULT_ICON_PATH: '/img/pin.svg',
+  CURRENT_ICON_PATH: '/img/pin-active.svg'
+};
+
+const defaultIcon = new Icon({
+  iconUrl: IconPath.DEFAULT_ICON_PATH,
+  iconSize: [28, 39],
+  iconAnchor: [14, 39]
 });
 
-const currentCustomIcon = new Icon({
-  iconUrl: URL_MARKER_CURRENT,
-  iconSize: [40, 40],
-  iconAnchor: [20, 40]
+const activeIcon = new Icon({
+  iconUrl: IconPath.CURRENT_ICON_PATH,
+  iconSize: [28, 39],
+  iconAnchor: [14, 39]
 });
 
 export default function Map(): JSX.Element {
@@ -37,7 +41,7 @@ export default function Map(): JSX.Element {
         });
         marker
           .setIcon(
-            hoveredCard === point.id ? currentCustomIcon : defaultCustomIcon
+            hoveredCard === point.id ? activeIcon : defaultIcon
           )
           .addTo(markerLayer);
       });

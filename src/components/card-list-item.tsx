@@ -1,5 +1,5 @@
 import { OffersType , SetFavoriteType} from '../types';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../hooks';
 import { AuthorizationStatus } from '../const';
 import { useSelector } from 'react-redux';
@@ -14,11 +14,12 @@ type OneCardProps = {
 
 function CardListItem({ offer, onMouseEnter, onSetFavorite }: OneCardProps): JSX.Element {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const status = useSelector(selectAuthStatus);
 
   const handleFavoriteClick = () => {
     if (status === AuthorizationStatus.NoAuth) {
-      window.location.href = '/login';
+      navigate('/login');
       return;
     }
     onSetFavorite({
@@ -26,13 +27,19 @@ function CardListItem({ offer, onMouseEnter, onSetFavorite }: OneCardProps): JSX
       status: Number(!offer.isFavorite),
     });
   };
+
   const handleMouseEnter = () => {
     onMouseEnter(offer.id);
     dispatch(setHoveredCardId(offer.id));
   };
 
+  const handleMouseLeave = () => {
+    onMouseEnter('');
+    dispatch(setHoveredCardId(''));
+  };
+
   return (
-    <div onMouseEnter={handleMouseEnter}>
+    <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <article className="cities__card place-card">
         {offer.isPremium && (
           <div className="place-card__mark">

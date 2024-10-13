@@ -5,6 +5,7 @@ import { auth } from '../store/auth/auth.slice';
 import { useSelector } from 'react-redux';
 import { selectAuthData } from '../store/auth/auth-selectors';
 import { selectFavorites } from '../store/offer/offer-selectors';
+import { dropToken } from '../token.tsx';
 
 export default function AuthHeader(): JSX.Element {
 
@@ -13,6 +14,7 @@ export default function AuthHeader(): JSX.Element {
   const favoriteOffers = useSelector(selectFavorites);
 
   function handler() {
+    dropToken();
     dispatch(auth.actions.requireAuthorization(AuthorizationStatus.NoAuth));
   }
   return (

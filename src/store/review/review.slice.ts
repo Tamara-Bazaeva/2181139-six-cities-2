@@ -22,7 +22,7 @@ export const reviewsSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(postComment.fulfilled, (state, action: PayloadAction<ReviewType>) => {
-        state.reviews = [...state.reviews, action.payload];
+        state.reviews = [action.payload, ...state.reviews].slice(0, 10);
       })
       .addCase(postComment.rejected, (state) => {
         state.reviews = [...state.reviews];

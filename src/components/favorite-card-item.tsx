@@ -6,7 +6,7 @@ type FavoriteCardProps = {
   onFavoriteClick: ({ id, status }: SetFavoriteType) => void;
 }
 
-function FavoriteCardItem({offer, onFavoriteClick} : FavoriteCardProps): JSX.Element {
+function FavoriteCardItem({ offer, onFavoriteClick }: FavoriteCardProps): JSX.Element {
 
   const handleFavoriteClick = () => {
     onFavoriteClick({
@@ -22,9 +22,9 @@ function FavoriteCardItem({offer, onFavoriteClick} : FavoriteCardProps): JSX.Ele
           <span>Premium</span>
         </div>)}
       <div className="favorites__image-wrapper place-card__image-wrapper">
-        <a href="#">
+        <Link to={`/offer/${offer.id}`}>
           <img className="place-card__image" src={offer.previewImage} width="150" height="110" alt="Place image" />
-        </a>
+        </Link>
       </div>
       <div className="favorites__card-info place-card__info">
         <div className="place-card__price-wrapper">
@@ -45,7 +45,7 @@ function FavoriteCardItem({offer, onFavoriteClick} : FavoriteCardProps): JSX.Ele
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `${offer.rating / 0.05}%`}}></span>
+            <span style={{ width: `${offer.rating / 0.05}%` }}></span>
             <span className="visually-hidden">Rating{offer.rating}</span>
           </div>
         </div>
