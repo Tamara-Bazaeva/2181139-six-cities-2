@@ -134,7 +134,7 @@ function OfferPage(): JSX.Element {
             </div>
           </div>
           <section className="offer__map map">
-            <Map/>
+            <Map offers={[offer, ...nearbyOffers]} />
           </section>
         </section>
         <div className="container">

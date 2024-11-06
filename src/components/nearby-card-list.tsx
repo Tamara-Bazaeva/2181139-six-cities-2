@@ -21,7 +21,7 @@ export default function NearbyCardList({ offersNearby }: OffersListNearbyProps):
     <section className="near-places places">
       <h2 className="near-places__title">Other places in the neighbourhood</h2>
       <div className="near-places__list places__list">
-        {offersNearby.slice(0,3).map((offerNearby) => <NearbyCardListItem offer={offerNearby} onFavoriteClick={handleFavoriteClick} key={offerNearby.id}/>)};
+        {offersNearby.map((offerNearby) => <NearbyCardListItem offer={offerNearby} onFavoriteClick={handleFavoriteClick} key={offerNearby.id}/>)};
       </div>
     </section>
   );

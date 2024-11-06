@@ -6,10 +6,15 @@ import { fetchOffersAction, checkAuthAction, fetchFavorites } from './store/asyn
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { store } from './store';
+import { getToken } from './token';
 
-store.dispatch(fetchFavorites());
 store.dispatch(fetchOffersAction());
-store.dispatch(checkAuthAction());
+const token = getToken();
+
+if (token) {
+  store.dispatch(fetchFavorites());
+  store.dispatch(checkAuthAction());
+}
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

@@ -4,7 +4,7 @@ import { NameSpace } from '../../const';
 
 export const selectOffer = (state: State) => state[NameSpace.Offer].offer;
 
-export const selectNearbyOffers = (state: State) => state[NameSpace.Offer].offersNearby;
+export const selectNearbyOffers = (state: State) => state[NameSpace.Offer].offersNearby.slice(0,3);
 
 const groupByCity = (offers: OffersType[]) => offers.reduce<{
   [city: string]: OffersType[];

@@ -4,7 +4,6 @@ import useMap from '../useMap.tsx';
 import 'leaflet/dist/leaflet.css';
 import { OffersType} from '../types.tsx';
 import { useSelector } from 'react-redux';
-import { selectCityOffers } from '../store/offers/offers-selectors.ts';
 import { selectHoveredCard } from '../store/offers/offers-selectors.ts';
 
 const IconPath = {
@@ -24,17 +23,20 @@ const activeIcon = new Icon({
   iconAnchor: [14, 39]
 });
 
-export default function Map(): JSX.Element {
-  const propPoints = useSelector(selectCityOffers);
+type MapProps = {
+  offers: OffersType[];
+};
+
+export default function Map({ offers }: MapProps) {
   const hoveredCard = useSelector(selectHoveredCard);
   const mapRef = useRef(null);
-  const map = useMap(mapRef, propPoints[0]);
+  const map = useMap(mapRef, offers[0]);
 
   useEffect(() => {
     if (map) {
       const markerLayer = layerGroup().addTo(map);
 
-      propPoints?.forEach((point: OffersType) => {
+      offers?.forEach((point: OffersType) => {
         const marker = new Marker({
           lat: point.location.latitude,
           lng: point.location.longitude
@@ -50,7 +52,7 @@ export default function Map(): JSX.Element {
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, propPoints, hoveredCard]);
+  }, [map, offers, hoveredCard]);
 
   return <div style={{ height: '100%'}} ref={mapRef}></div>;
 }

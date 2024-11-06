@@ -17,13 +17,13 @@ export const fetchOffersAction = createAsyncThunk<OffersTypes, undefined, {
   async (_arg, { dispatch, extra: api }) => {
     try {
       dispatch(offersSlice.actions.setDataLoadingStatus(true));
-      const resp = await api.get<OffersTypes | [] >('/six-cities/offers');
-      if (resp.data.length === 0){
+      const response = await api.get<OffersTypes | [] >('/six-cities/offers');
+      if (response.data.length === 0){
         dispatch(offersSlice.actions.setDataLoadingStatus(false));
         return [];
       }
       dispatch(offersSlice.actions.setDataLoadingStatus(false));
-      return resp.data;
+      return response.data;
     } catch {
       dispatch(offersSlice.actions.setDataLoadingStatus(false));
       return [];
