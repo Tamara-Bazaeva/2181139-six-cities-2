@@ -13,6 +13,7 @@ import { selectReviews } from '../store/review/review-selectors';
 import { selectOffer } from '../store/offer/offer-selectors';
 import { selectNearbyOffers } from '../store/offer/offer-selectors';
 import { selectAuthStatus } from '../store/auth/auth-selectors';
+import { setHoveredCardId } from '../store/offers/offers.slice.ts';
 
 function OfferPage(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -22,8 +23,9 @@ function OfferPage(): JSX.Element {
   useEffect(() => {
     if (id) {
       dispatch(fetchReviewsAction(id));
-      dispatch(fetchOffer(`${id}`));
-      dispatch(fetchOffersNearby(`${id}`));
+      dispatch(fetchOffer(id));
+      dispatch(fetchOffersNearby(id));
+      dispatch(setHoveredCardId(id));
     }
   }, [id, dispatch]);
 

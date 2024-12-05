@@ -1,8 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { OffersType, SetFavoriteType } from '../types';
 import { AuthorizationStatus } from '../const';
-import { setHoveredCardId } from '../store/offers/offers.slice.ts';
-import { useAppDispatch } from '../hooks.tsx';
 
 type OfferNearbyProps = {
   offer: OffersType;
@@ -10,7 +8,6 @@ type OfferNearbyProps = {
 }
 
 export default function NearbyCardListItem({ offer, onFavoriteClick }: OfferNearbyProps): JSX.Element {
-  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const handleFavoriteClick = () => {
@@ -24,16 +21,8 @@ export default function NearbyCardListItem({ offer, onFavoriteClick }: OfferNear
     });
   };
 
-  const handleMouseEnter = () => {
-    dispatch(setHoveredCardId(offer.id));
-  };
-
-  const handleMouseLeave = () => {
-    dispatch(setHoveredCardId(''));
-  };
-
   return (
-    <article className="near-places__card place-card" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+    <article className="near-places__card place-card">
       <div className="near-places__image-wrapper place-card__image-wrapper">
         <Link to={`/offer/${offer.id}`}>
           <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place image" />
